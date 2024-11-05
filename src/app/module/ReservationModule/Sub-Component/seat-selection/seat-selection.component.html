@@ -1,0 +1,7 @@
+<button
+  class="w-6 h-6 rounded-full m-1 transition-colors"
+  [ngClass]="getStatusColor()"
+  (click)="handleSelect()"
+  [disabled]="status === 'occupied'"
+></button>
+
