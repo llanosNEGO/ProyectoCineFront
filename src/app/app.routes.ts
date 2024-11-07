@@ -9,10 +9,10 @@ import { SeatSelectionComponent } from './module/ReservationModule/Sub-Component
 export const routes: Routes = [
     { path: '', redirectTo: "/", pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
     {path: 'reservation', component: ReservationComponent},
     {path: 'payment', component: PaymentComponent},
     {path: 'seat', component: SeatSelectionComponent},
+    {path: 'register', component:RegisterComponent},
     
 
 ];

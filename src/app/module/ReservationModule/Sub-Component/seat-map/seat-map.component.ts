@@ -20,11 +20,9 @@ export class SeatMapComponent {
   cinema: Cinema = {
     name: 'Cineplex',
     capacity: 30,
-    capacitySeat: 10, // Number of seats per row
+    capacitySeat: 10
   };
-
   rows = 'ABCDEFGHIJKLMNO'.split('');
-  // Main layout to store generated seats
   seatingLayout: string[][] = [];
   occupiedSeats: Set<string> = new Set();
 
@@ -34,7 +32,6 @@ export class SeatMapComponent {
   }
 
   onSeatSelect(seatId: string): void {
-    // Toggle seat selection
     const seatIndex = this.selectedSeats.indexOf(seatId);
     
     if (seatIndex === -1) {
@@ -45,6 +42,7 @@ export class SeatMapComponent {
 
     this.seatSelect.emit([...this.selectedSeats]); // Emit updated selected seats
   }
+
   
 
   generateSeatingLayout(): string[][] {
@@ -67,8 +65,8 @@ export class SeatMapComponent {
 
 
 
+
   initializeOccupiedSeats(): void {
-    // Set some seats as occupied initially, for example:
     const seatCount = Math.floor(this.cinema.capacity * 0.3); // 30% occupied
     const seats = this.seatingLayout.flat();
     
@@ -78,7 +76,6 @@ export class SeatMapComponent {
     }
   }
 
-  // Define seat statuses for styling and functionality
   getSeatStatus(seatId: string): 'available' | 'occupied' | 'selected' | 'wheelchair' {
     const row = seatId.charAt(0);
     const number = parseInt(seatId.substring(1), 10);

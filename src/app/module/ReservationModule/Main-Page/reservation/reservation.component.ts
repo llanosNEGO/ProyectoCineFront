@@ -29,12 +29,10 @@ export class ReservationComponent {
 
   constructor(private router: Router) {}
 
-  handleSeatSelect(seatId: string): void {
+  handleSeatSelect(seatId: any): void {
     if (this.selectedSeats.includes(seatId)) {
       this.selectedSeats = this.selectedSeats.filter(id => id !== seatId);
-    } else {
-      this.selectedSeats.push(seatId);
-    }
+    } 
   }
 
 

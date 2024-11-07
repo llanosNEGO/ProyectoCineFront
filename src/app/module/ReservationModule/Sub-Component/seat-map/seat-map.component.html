@@ -24,17 +24,17 @@
     -->
 
     <div class="flex flex-col items-center">
-      <div *ngFor="let row of seatingLayout" class="flex items-center">
-        <span class="w-6 text-center font-semibold">{{ row[0].charAt(0) }}</span>
+      <div *ngFor="let rowSeats of seatingLayout; let rowIndex = index" class="flex items-center">
+        <span class="w-6 text-center font-semibold">{{ rows[rowIndex] }}</span>
         <div class="flex">
           <app-seat-selection
-            *ngFor="let seatId of row"
+            *ngFor="let seatId of rowSeats"
             [id]="seatId"
             [status]="getSeatStatus(seatId)"
-            (click)="onSeatSelect(seatId)"
+            (select)="onSeatSelect($event)"
           ></app-seat-selection>
         </div>
-        <span class="w-6 text-center font-semibold">{{ row[0].charAt(0) }}</span>
+        <span class="w-6 text-center font-semibold">{{ rows[rowIndex] }}</span>
       </div>
     </div>
     
