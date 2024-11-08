@@ -1,0 +1,33 @@
+<div class="relative w-full overflow-hidden mb-10">
+  <div #slider class="flex transition-transform duration-300 ease-in-out">
+    <img
+      *ngFor="let slide of slides"
+      [src]="slide.url"
+      [alt]="slide.text"
+      class="w-full h-auto flex-shrink-0 object-cover"
+    />
+  </div>
+  <button
+    (click)="prevSlide()"
+    class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+  >
+    ‹
+  </button>
+  <button
+    (click)="nextSlide()"
+    class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
+  >
+    ›
+  </button>
+  <div
+    class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
+  >
+    <span
+      *ngFor="let slide of slides; let i = index"
+      class="w-4 h-4 rounded-full"
+      [class.bg-gray-800]="i === currentIndex"
+      [class.bg-gray-400]="i !== currentIndex"
+      (click)="showSlide(i)"
+    ></span>
+  </div>
+</div>

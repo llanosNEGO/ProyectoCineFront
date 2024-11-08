@@ -4,26 +4,34 @@
     <div class="bg-white rounded-lg shadow-md p-6 mb-8">
       <div class="flex items-center gap-6">
         <img
-          src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=250&h=350&fit=crop"
+          src='{{movie?.url}}'
           alt="Dalia y el Libro Rojo"
           class="w-32 h-48 object-cover rounded-md"
         />
         <div class="flex-1">
-          <h1 class="text-2xl font-bold text-black mb-2">{{ movie.title }}</h1>
+          <!---->
+          <h1 class="text-2xl font-bold text-black mb-2">{{ movie?.title }}</h1>
+          
+
+
           <div class="flex flex-wrap gap-4 text-gray-600">
             <div class="flex items-center gap-2">
               <i class="icon-film"></i>
-              <span *ngFor="let itms of movie.format">
+              <span *ngFor="let itms of movie?.disponible">
                 {{ itms }}
               </span>
+              
             </div>
             <div class="flex items-center gap-2">
               <i class="icon-calendar"></i>
-              <span>{{ movie.date }}</span>
+              <span>hoy jueves 07 </span>
+            <!--<span>{{ movie.date }}</span>-->
+              
             </div>
             <div class="flex items-center gap-2">
               <i class="icon-clock"></i>
-              <span>{{ movie.hours }}</span>
+              <!--  -->
+              <span>{{ movie?.durationMovie }}</span>
             </div>
           </div>
         </div>

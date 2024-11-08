@@ -1,0 +1,13 @@
+<div class="container mx-auto px-4">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div *ngFor="let movie of movies">
+      <app-movie-card
+        [posterUrl]="movie.url"
+        [title]="movie.title"
+        [genre]="movie.genre"
+        [duration]="movie.durationMovie"
+        (click)="viewDetails(movie.id)"
+      ></app-movie-card>
+    </div>
+  </div>
+</div>

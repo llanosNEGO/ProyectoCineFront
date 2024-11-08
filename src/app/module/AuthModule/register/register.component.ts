@@ -60,6 +60,7 @@ export class RegisterComponent {
       //alert("Usuario creado correctamente")
       this._router.navigateByUrl('/reservation');
 
+
       
     } catch (error) {
       toast.error('Ocurrio un error');

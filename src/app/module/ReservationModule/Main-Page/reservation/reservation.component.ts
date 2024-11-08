@@ -14,20 +14,18 @@ import { NgFor } from '@angular/common';
 })
 export class ReservationComponent {
 
-  // Instance el objeto movie
-  movie: Movie = {
-    title: 'The Matrix',
-    image: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg',
-    format: ['2D', '3D'],
-    cinema: 'Cinema 1',
-    date: '2021-04-15',
-    hours: '15:00',
-    room: 'Room 1',
-  };
+  movie?:Movie;
 
   selectedSeats: string[] = [];
 
-  constructor(private router: Router) {}
+  //Modifique
+  constructor(private router: Router) {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state as { movie: Movie };
+    this.movie = state.movie;
+  }
+
+
 
   handleSeatSelect(seatId: any): void {
     if (this.selectedSeats.includes(seatId)) {

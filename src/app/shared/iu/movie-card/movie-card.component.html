@@ -1,0 +1,32 @@
+<div
+  class="movie-card relative w-72 rounded-lg overflow-hidden shadow-lg transition-transform transform hover:translate-y-[-5px]"
+>
+  <img
+    [src]="posterUrl"
+    alt="Movie Poster"
+    class="movie-poster w-full h-96 object-cover"
+  />
+  <div
+    class="overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center gap-2 opacity-0 transition-opacity duration-300 hover:opacity-100"
+  >
+    <button
+      class="buy-button px-4 py-2 rounded-full bg-red-500 text-white font-bold hover:scale-105 transition-transform"
+    >
+      Comprar
+    </button>
+    <button
+      class="details-button px-4 py-2 rounded-full bg-white text-gray-800 font-bold hover:scale-105 transition-transform"
+    >
+      Ver Detalles
+    </button>
+  </div>
+  <div class="movie-info p-4 text-white">
+    <h3 class="text-lg font-semibold text-gray-200">{{ title }}</h3>
+    <p class="text-sm text-gray-600">{{ genre }}, {{ duration }}</p>
+  </div>
+  <div
+    class="estreno-badge absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-sm font-semibold"
+  >
+    Estreno
+  </div>
+</div>
