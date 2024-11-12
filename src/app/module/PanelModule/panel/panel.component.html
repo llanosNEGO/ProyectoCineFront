@@ -1,4 +1,4 @@
-<div class="min-h-screen flex  pt-40">
+<div class="min-h-screen flex  ">
   <!-- Sidebar -->
   <nav class="w-64 bg-[rgb(76,86,101)] text-white flex flex-col">
     <div class="px-6 py-4">
@@ -18,8 +18,8 @@
 
       <a
         class="menu-item block py-2 px-4 rounded hover:bg-green-700"
-        (click)="toggleMovies()"
-        >Movies</a
+        (click)="toggleCines()"
+        >Cines</a
       >
     </div>
   </nav>
@@ -138,46 +138,33 @@
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-900">
             <tr>
-              <th class="table-header">Title</th>
-              <th class="table-header">sinopsis</th>
-              <th class="table-header">Director</th>
-              <th class="table-header">genero</th>
-              <th class="table-header">age</th>
-              <th class="table-header">clasificación</th>
-              <th class="table-header">idioma</th>
-              <th class="table-header">Status</th>
+              <th class="table-header">Cine</th>
+              <th class="table-header">descripcion</th>
+              <th class="table-header">Addrress</th>
+              
             </tr>
           </thead>
           <tbody class="bg-black divide-y divide-gray-200 text-center">
-            <tr *ngFor="let m of movies">
+            <tr *ngFor="let c of Cinemas">
               <!-- Cine -->
-              <td class="table-cell">{{ m.title }}</td>
+              <td class="table-cell">{{ c.nameCinema }}</td>
               <!-- Horario -->
-              <td class="table-cell">{{  m.sinopsis  }}</td>
+              <td class="table-cell">{{  c.description }}</td>
               <!-- Película -->
-              <td class="table-cell">{{  m.director }}</td>
-              <!-- adrres -->
-              <td class="table-cell">{{ m.genre }}</td>
-              <!-- Fecha (Usando createdAt) -->
-              <td class="table-cell">
-                {{m.age  }}
-              </td>
+              <td class="table-cell">{{  c.address }}</td>
+              
 
-              <!-- Costo -->
-              <td class="table-cell">{{ m.classification }}</td>
+              
               <!-- Asiento -->
+               <!--
               <td class="table-cell">
-                <div *ngFor="let i of m.language">
-                    <span >{{i}}</span>
+                <div *ngFor="let i of c.rooms">
+                    <span >{{i.rooms.name}}</span>
 
                 </div>
               </td>
-
-              <td class="table-cell">
-                <div *ngFor="let i of m.status">
-                    <span >{{i}}</span>
-                </div>
-              </td>
+              
+               -->
               
             </tr>
           </tbody>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Cinemas } from '../../../models/Cinemas';
-import { CinemaApiService } from '../data-access/cinema-api.service';
+
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({

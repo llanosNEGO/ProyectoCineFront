@@ -40,7 +40,7 @@ export class PanelComponent {
   toggleCines() {
     this.showReservations = false;
     this.showMovies = false;
-    this.showCines = false;
+    this.showCines = true;
   }
 
 
@@ -48,13 +48,14 @@ export class PanelComponent {
   // Constructor donde inyectas el servicio de reserva
   public constructor(private reservationService: ReservationService, 
     private movieService:MovieApiService,
-    private cinemas:CinemaApiService
+    private cinemasServices:CinemaApiService
   ) {}
 
   // Método ngOnInit para inicializar los datos
   ngOnInit(): void {
     this.getReservation(); // Obtener todas las reservas
     this.fetchMovies();//Obtner datos de mi api
+    this.fetchCines(); ///Obtner datos de api propi
   }
 
 
@@ -111,14 +112,14 @@ export class PanelComponent {
     );
   }
 
-  /******************************************************** */
+  /***********************************************************/
   Cinemas:any[]=[];
   // Método para obtener las películas desde el servicio
   fetchCines() {
-    this.movieService.getMoviesbac().subscribe(
+    this.cinemasServices.getCineBac().subscribe(
       (data) => {
-        this.movies = data; // Asignamos la respuesta a `movies`
-        console.log('Movies fetched:', this.movies);
+        this.Cinemas = data; // Asignamos la respuesta a `movies`
+        console.log('Cines fetched:', this.Cinemas);
       },
       (error) => {
         console.error('Error fetching movies:', error);
