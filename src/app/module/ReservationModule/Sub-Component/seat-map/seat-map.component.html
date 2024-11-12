@@ -6,26 +6,11 @@
       <span class="text-slate-800  font-semibold">PANTALLA</span>
     </div>
 
-    <!---
-    <div class="flex flex-col items-center  text-slate-800 ">
-      <div *ngFor="let rowSeats of seatingLayout; let rowIndex = index" class="flex items-center">
-        <span class="w-6 text-center font-semibold">{{ rows[rowIndex] }}</span>
-        <div class="flex">
-          <app-seat-selection
-            *ngFor="let seatId of rowSeats"
-            [id]="seatId"
-            [status]="getSeatStatus(seatId)"
-            (select)="onSeatSelect(seatId)"
-          ></app-seat-selection>
-        </div>
-        <span class="w-6 text-center font-semibold">{{ rows[rowIndex] }}</span>
-      </div>
-    </div>
-    -->
+  
 
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center text-black">
       <div *ngFor="let rowSeats of seatingLayout; let rowIndex = index" class="flex items-center">
-        <span class="w-6 text-center font-semibold">{{ rows[rowIndex] }}</span>
+        <span class="w-6 text-center font-semibold">{{ rowLabels[rowIndex] }}</span>
         <div class="flex">
           <app-seat-selection
             *ngFor="let seatId of rowSeats"
@@ -34,14 +19,9 @@
             (select)="onSeatSelect($event)"
           ></app-seat-selection>
         </div>
-        <span class="w-6 text-center font-semibold">{{ rows[rowIndex] }}</span>
+        <span class="w-6 text-center font-semibold">{{ rowLabels[rowIndex] }}</span>
       </div>
     </div>
-    
-    
-    
-    
-   
 
     <div class="mt-8 flex justify-center space-x-6  text-slate-800">
       <div class="flex items-center">

@@ -1,0 +1,97 @@
+<div class="min-h-screen flex bg-gray-100">
+  <!-- Sidebar -->
+  <nav class="w-64 bg-[rgb(76,86,101)] text-white flex flex-col">
+    <div class="px-6 py-4">
+      <h1 class="text-xl font-bold">Inventory Control</h1>
+    </div>
+    <div class="mt-4 space-y-2 px-6">
+      <a
+        class="menu-item block py-2 px-4 rounded hover:bg-green-700"
+        (click)="toggleReservations()"
+        >Reservas</a
+      >
+      <a
+        class="menu-item block py-2 px-4 rounded hover:bg-green-700"
+        (click)="toggleMovies()"
+        >Movies</a
+      >
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="bg-[#111827] flex-1 p-6">
+    <div *ngIf="showReservations">
+      <div class="bg-[#111827] shadow-md rounded-lg overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-900">
+            <tr>
+              <th class="table-header">Cine</th>
+              <th class="table-header">Horario</th>
+              <th class="table-header">Pelicula</th>
+              <th class="table-header">Address</th>
+              <th class="table-header">fecha</th>
+              <th class="table-header">costo</th>
+              <th class="table-header">asiento</th>
+              <th class="table-header">Usuario</th>
+              <th class="table-header">Date registro</th>
+            </tr>
+          </thead>
+          <tbody class="bg-black divide-y divide-gray-200 text-center">
+            <tr *ngFor="let reservation of reservations">
+              <!-- Cine -->
+              <td class="table-cell">{{ reservation.cine.name }}</td>
+              <!-- Horario -->
+              <td class="table-cell">{{ reservation.time }}</td>
+              <!-- Película -->
+              <td class="table-cell">{{ reservation.movie.title }}</td>
+              <!-- adrres -->
+              <td class="table-cell">{{ reservation.cine.address }}</td>
+              <!-- Fecha (Usando createdAt) -->
+              <td class="table-cell">
+                {{ "No disponible" }}
+              </td>
+
+              <!-- Costo -->
+              <td class="table-cell">${{ reservation.payment.totalAmount }}</td>
+              <!-- Asiento -->
+              <td class="table-cell">
+                <div *ngFor="let seat of reservation.selectedSeats">
+                    <span >{{seat}}</span>
+
+                </div>
+                
+              </td>
+              <!-- Usuario -->
+              <td class="table-cell">{{ reservation.payment.cardHolder }}</td>
+              <!-- Fecha de Registro -->
+              <td class="table-cell">
+                {{ getFormattedDate(reservation.createdAt) | date: 'yyyy-MM-dd' }}
+              </td>
+              
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="showMovies">
+      <div class="bg-[#111827] shadow-md rounded-lg overflow-hidden">
+        <h1>Movies</h1>
+      </div>
+    </div>
+
+    <div class="mt-4 flex justify-between items-center">
+      <span class="text-sm text-gray-700">
+        Mostrando 1 al 9 de 9 registros
+      </span>
+      <div class="flex space-x-2">
+        <button class="px-3 py-1 border rounded-md">Anterior</button>
+        <button class="px-3 py-1 border rounded-md bg-blue-600 text-white">
+          1
+        </button>
+        <button class="px-3 py-1 border rounded-md">Siguiente</button>
+      </div>
+    </div>
+  </main>
+</div>

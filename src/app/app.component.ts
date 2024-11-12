@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/iu/header/header.component';
-import { NgxSonnerToaster } from 'ngx-sonner';
+import { NgxSonnerToaster, toast } from 'ngx-sonner';
 import { Slide, SliderComponent } from './shared/iu/slider/slider.component';
 import { MovieCardComponent } from './shared/iu/movie-card/movie-card.component';
-import { MovieApiService } from './module/CinemasModule/data-access/movie-api.service';
+import { MovieApiService } from './module/MovieModule/data-access/movie-api.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { CinemaDetailComponent } from "./module/CinemasModule/cinema-detail/cinema-detail.component";
+import { HomeComponent } from "./module/home/home.component";
+import { ReservationService } from './module/ReservationModule/reservation.service';
+import { FooterComponent } from "./shared/iu/footer/footer.component";
+
 
 @Component({
   selector: 'app-root',
@@ -19,7 +24,10 @@ import { HttpClientModule } from '@angular/common/http';
     MovieCardComponent,
     HttpClientModule,
     CommonModule,
-  ],
+    CinemaDetailComponent,
+    HomeComponent,
+    FooterComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -46,17 +54,39 @@ export class AppComponent {
 
   Movie: any[] = [];
   movieSummaries: any[] = [];
+  Reservation:any[]=[];
 
-  constructor(private Service: MovieApiService) {}
+  constructor(private movieService: MovieApiService,private reservationService:ReservationService) {}
 
   ngOnInit(): void {
-    this.Service.getMovies().subscribe(
+    
+
+    this.getMovie();
+    this.getReservation();
+    
+  }
+
+  getMovie(){
+    this.movieService.getMovies().subscribe(
       (data) => {
         this.Movie = data;
         console.log('Movies loaded:', this.Movie);
       },
       (error) => {
         console.error('Error loading tasks:', error);
+      }
+    );
+  }
+
+
+  getReservation() {
+    this.reservationService.getAllReservations().subscribe(
+      (data)=>{
+        this.Reservation=data;
+        console.log('Reservation: ',this.Reservation);
+      },
+      (error) => {
+        console.error('Error loading reservation:', error);
       }
     );
   }

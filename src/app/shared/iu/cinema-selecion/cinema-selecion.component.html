@@ -1,0 +1,25 @@
+<div class="border rounded-lg hover:shadow-md transition-shadow mb-2">
+  <button (click)="isExpanded = !isExpanded"
+          class="w-full p-4 flex justify-between items-center text-left">
+    <span class=" font-medium">{{ nameCinema }}</span>
+    <span class=" text-2xl">
+      {{ isExpanded ? '−' : '+' }}
+    </span>
+  </button>
+
+  <div *ngIf="isExpanded" 
+       class="p-4 border-t border-red-600 text-white">
+    <p class="text-g mb-4">Horarios y funciones disponibles...</p>
+    
+    <div class="mb-4 text-white">
+      <div class="flex flex-wrap gap-2">
+        <div *ngFor="let format of formats">
+          <h3>{{ format }}</h3>
+          <div *ngFor="let time of horarios" (click)="onTimeClick(format, time)">
+            <button class="time-button">{{ time }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<div class="min-h-screen">
+  <!-- Video Trailer Section -->
+  <div class="max-w-7xl mx-auto px-4 py-8 h-[600px] bg-black relative">
+    <iframe
+      class="absolute inset-0 w-full h-full"
+      [src]="safeUrl"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+    <div class="absolute bottom-4 text-white text-center w-full">
+      <p>Mira el trailer</p>
+    </div>
+  </div>
+
+  <!-- Movie Details Section -->
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Movie Information -->
+      <div class="flex-1">
+        <div class="flex justify-between items-start mb-6">
+          <h1 class="text-4xl font-bold">{{ movie?.title }}</h1>
+          <button
+            class="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600"
+          >
+            Comprar
+          </button>
+        </div>
+
+        <div class="flex gap-2 text-sm text-gray-200 mb-6">
+          <span>{{ movie?.genre }}</span>
+          <span>|</span>
+          <span>{{ movie?.durationMovie }}</span>
+          <span>|</span>
+          <span class="text-red-700">{{ movie?.age }}</span>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-4">Sinopsis.</h2>
+          <p class="text-gray-200">{{ movie?.sinopsis }}</p>
+        </div>
+
+        <div class="space-y-4">
+          <div *ngIf="movie?.director">
+            <h3 class="font-bold">Director</h3>
+            <p class="text-red-700">{{ movie?.director }}</p>
+          </div>
+
+          <div>
+            <h3 class="font-bold">Idioma</h3>
+            <div class="flex flex-wrap gap-2">
+              <div *ngFor="let idioma of movie?.idioma">
+                <span class="px-2 py-1 mt-2 text-sm bg-red-700 rounded text-white">
+                  {{ idioma }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-bold">Disponible</h3>
+
+            <div class="flex flex-wrap gap-2">
+              <div *ngFor="let disponible of movie?.disponible">
+                <span class="px-2 py-1 mt-2 text-sm bg-red-700 rounded text-white">
+                  {{ disponible }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Movie Poster -->
+      <div class="md:w-80">
+        <div class="relative">
+          <div
+            class="absolute -top-4 -left-4 bg-red-500 text-white px-4 py-1 rotate-[-12deg] text-sm"
+          >
+            Estreno
+          </div>
+          <img
+            [src]="movie?.url"
+            alt="Aventuras Caninas Poster"
+            class="w-full rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-center mb-8">
+      La función perfecta para ti.
+    </h1>
+
+    <!-- Theater List -->
+    <section *ngFor="let cine of cine">
+      <app-cinema-selecion
+        [nameCinema]="cine.name"
+        [formats]="cine.disponible"
+        [horarios]="cine.Horarios"
+        (timeSelected)="
+          goToReservationWithDetails(cine.name, $event.format, $event.time)
+        "
+      ></app-cinema-selecion>
+    </section>
+  </div>
+</div>

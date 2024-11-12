@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SeatSelectionComponent } from '../seat-selection/seat-selection.component';
-import { Cinema } from '../../../../models/cinema';
+import { Rooms } from '../../../../models/Rooms';
 
 @Component({
   selector: 'app-seat-map',
@@ -11,18 +11,97 @@ import { Cinema } from '../../../../models/cinema';
   styles: ``,
 })
 export class SeatMapComponent {
-  //es una propiedad de entrada que puede ser pasada desde un componente padre.
-  @Input() selectedSeats: string[] = [];
-  //es una propiedad de salida que puede ser pasada a un componente padre.
-  @Output() seatSelect = new EventEmitter<string[]>();
+  @Input() selectedSeats: string[] = []; // Recibe la lista de asientos seleccionados
+  @Output() seatSelect = new EventEmitter<string[]>(); // Emite la lista completa de asientos seleccionados
 
+  //@Output() seatSelect = new EventEmitter<string>();
   // Instancia de la interfaz Cinema
-  cinema: Cinema = {
+  /*cinema: Cinema = {
     name: 'Cineplex',
     capacity: 30,
-    capacitySeat: 10
+    capacitySeat: 10,
+  };*/
+
+  // Instancia de la interfaz Rooms
+  room: Rooms = {
+    idRooms: 1,
+    name: 'Sala 1',
+    rows: 5,
+    colum: 6,
+    movieHorios: [],
   };
-  rows = 'ABCDEFGHIJKLMNO'.split('');
+
+  seatingLayout: string[][] = [];
+  occupiedSeats: Set<string> = new Set();
+  rowLabels = 'ABCDEFGHIJKLMNO'.split('');
+
+  constructor() {
+    this.seatingLayout = this.generateSeatingLayout();
+    this.initializeOccupiedSeats();
+  }
+
+  /*onSeatSelect(seatId: string): void {
+    const seatIndex = this.selectedSeats.indexOf(seatId);
+    if (seatIndex === -1) {
+      this.selectedSeats.push(seatId);
+    } else {
+      this.selectedSeats.splice(seatIndex, 1);
+    }
+    this.seatSelect.emit(seatId); // Emitir solo `seatId`
+  }*/
+
+  // Método para manejar la selección de asientos
+  // Lógica para manejar la selección de asientos
+  onSeatSelect(seatId: string): void {
+    const seatIndex = this.selectedSeats.indexOf(seatId);
+    if (seatIndex === -1) {
+      this.selectedSeats.push(seatId); // Añade el asiento si no está seleccionado
+    } else {
+      this.selectedSeats.splice(seatIndex, 1); // Elimina el asiento si ya está seleccionado
+    }
+    this.seatSelect.emit([...this.selectedSeats]); // Emite el array completo de asientos seleccionados
+  }
+
+  generateSeatingLayout(): string[][] {
+    const layout: string[][] = [];
+    const rows = 5;
+    const colum = 6;
+    for (let i = 0; i < rows; i++) {
+      const rowSeats: string[] = [];
+      for (let j = 1; j <= colum; j++) {
+        rowSeats.push(`${this.rowLabels[i]}${j}`);
+      }
+      layout.push(rowSeats);
+    }
+    return layout;
+  }
+
+  initializeOccupiedSeats(): void {
+    const seatCount = Math.floor(this.seatingLayout.flat().length * 0.3);
+    const seats = this.seatingLayout.flat();
+    while (this.occupiedSeats.size < seatCount) {
+      const randomSeat = seats[Math.floor(Math.random() * seats.length)];
+      this.occupiedSeats.add(randomSeat);
+    }
+  }
+
+  getSeatStatus(seatId: string): 'available' | 'occupied' | 'selected' | 'wheelchair' {
+    const row = seatId.charAt(0);
+    const number = parseInt(seatId.substring(1), 10);
+    const isWheelchair = row === 'A' && (number === 1 || number === 2);
+
+    return isWheelchair
+      ? 'wheelchair'
+      : this.selectedSeats.includes(seatId)
+      ? 'selected'
+      : this.occupiedSeats.has(seatId)
+      ? 'occupied'
+      : 'available';
+  }
+
+  /*
+
+   rows = 'ABCDEFGHIJKLMNO'.split('');
   seatingLayout: string[][] = [];
   occupiedSeats: Set<string> = new Set();
 
@@ -63,9 +142,6 @@ export class SeatMapComponent {
     return layout;
   }
 
-
-
-
   initializeOccupiedSeats(): void {
     const seatCount = Math.floor(this.cinema.capacity * 0.3); // 30% occupied
     const seats = this.seatingLayout.flat();
@@ -89,4 +165,6 @@ export class SeatMapComponent {
       ? 'occupied'
       : 'available';
   }
+  
+  */
 }

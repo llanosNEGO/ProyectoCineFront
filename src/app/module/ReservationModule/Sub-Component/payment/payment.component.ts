@@ -1,117 +1,102 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { ReservationService } from '../../reservation.service';
+import { Payment } from '../../../../models/Payment';
 
 @Component({
   selector: 'app-payment',
   standalone: true,
   imports: [ReactiveFormsModule, NgIf],
   templateUrl: './payment.component.html',
-  styles: ``
+  styles: ``,
 })
 export class PaymentComponent {
-  /*********************************************************************** */
+  /**********************************Nuevo************************************* */
+  paymentForm: FormGroup;
   selectedSeats: string[] = [];
   totalAmount: number = 0;
-  paymentForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private reservationService: ReservationService
   ) {
-    // Initializing payment form with validators
+    const reservationDetails = this.reservationService.getReservationDetails();
+    this.selectedSeats = reservationDetails.selectedSeats || [];
+    this.totalAmount = this.selectedSeats.length * 10; // Precio por asiento
+
     this.paymentForm = this.fb.group({
       cardNumber: ['', [Validators.required, Validators.pattern(/^\d{4} \d{4} \d{4} \d{4}$/)]],
       cardHolder: ['', Validators.required],
       expiryDate: ['', [Validators.required, Validators.pattern(/^\d{2}\/\d{2}$/)]],
       cvv: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
     });
-
-    // Getting selected seats from route state
-    const state = this.router.getCurrentNavigation()?.extras.state as { selectedSeats: string[] };
-    this.selectedSeats = state?.selectedSeats || [];
-    this.totalAmount = this.selectedSeats.length * 45; // 45 soles per seat
-  }
-
-  // Form field getter for easier access
-  get f() {
-    return this.paymentForm.controls;
-  }
-
-  // Format card number as 'xxxx xxxx xxxx xxxx'
-  formatCardNumber() {
-    const rawValue = this.f['cardNumber'].value.replace(/\s/g, '');
-    const formattedValue = rawValue.replace(/(\d{4})/g, '$1 ').trim();
-    this.paymentForm.patchValue({ cardNumber: formattedValue });
   }
 
   onSubmit() {
     if (this.paymentForm.valid) {
+      // Verificar valor del formulario
+      console.log('Formulario válido:', this.paymentForm.value);
+  
+      const payment: Payment = {
+        cardNumber: this.paymentForm.value.cardNumber,
+        cardHolder: this.paymentForm.value.cardHolder,
+        expiryDate: this.paymentForm.value.expiryDate,
+        cvv: this.paymentForm.value.cvv,
+        totalAmount: this.totalAmount
+      };
+  
+      // Verificar objeto `payment`
+      console.log('Objeto de pago:', payment);
+  
+      // Guardar detalles de pago y realizar otras acciones
+      this.reservationService.setPaymentDetails(payment);
+      this.saveReservation();
+
       alert('¡Pago procesado con éxito!');
+      this.reservationService.printData();
+      //this.reservationService.clearReservation();
+      this.router.navigate(['/confirmation']);
     } else {
       alert('Por favor complete todos los campos correctamente.');
     }
   }
 
-  // Navigate back to seat selection
+
+  //metodo para guarda la data en firebase
+  async saveReservation() {
+    try {
+      const reservationId = await this.reservationService.saveReservation();
+      console.log('Reservación guardada con éxito:', reservationId);
+      // Aquí podrías navegar a una página de confirmación
+    } catch (error) {
+      console.error('Error al guardar:', error);
+      // Manejo de errores
+    }
+  }
+  
+
   goBack() {
     this.router.navigate(['/seat-selection']);
   }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*paymentForm: FormGroup;
-  timer: string = '04:46';
-
-  constructor(private fb: FormBuilder) {
-    this.paymentForm = this.fb.group({
-      fullName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      paymentMethod: ['', Validators.required],
-      acceptTerms: [false, Validators.requiredTrue],
-      acceptPrivacy: [false, Validators.requiredTrue],
-      acceptOptional: [false]
-    });
+  get f() {
+    return this.paymentForm.controls;
   }
 
-  onSubmit() {
-    if (this.paymentForm.valid) {
-      console.log(this.paymentForm.value);
-      // Aquí puedes agregar la lógica para procesar el pago
-    } else {
-      this.markFormGroupTouched(this.paymentForm);
-    }
+  //formate la separacion de espacios de 4 en 4 
+  formatCardNumber() {
+    const rawValue = this.f['cardNumber'].value.replace(/\s/g, '');
+    const formattedValue = rawValue.replace(/(\d{4})/g, '$1 ').trim();
+    this.paymentForm.patchValue({ cardNumber: formattedValue });
   }
-
-  private markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
-      if (control instanceof FormGroup) {
-        this.markFormGroupTouched(control);
-      }
-    });
-  }*/
-
 }

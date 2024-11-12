@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Movie } from '../../../models/Movie';
-import { MovieApiService } from '../data-access/movie-api.service';
+import { MovieApiService } from '../../MovieModule/data-access/movie-api.service';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { MovieCardComponent } from "../../../shared/iu/movie-card/movie-card.component";

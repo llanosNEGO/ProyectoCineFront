@@ -5,7 +5,7 @@ import { NgClass, NgFor } from '@angular/common';
 @Component({
   selector: 'app-seat-selection',
   standalone: true,
-  imports: [NgFor,NgClass],
+  imports: [NgFor, NgClass],
   templateUrl: './seat-selection.component.html',
   styleUrl: './seat-selection.component.css',
 })

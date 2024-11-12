@@ -1,0 +1,21 @@
+<div *ngIf="cine">
+    <h2>{{ cine.nameCinemas }} - {{ cine.city }}</h2>
+    <p>Dirección: {{ cine.description }}</p>
+  
+    <div *ngFor="let sala of cine.rooms">
+      <h3>{{ sala.name }}</h3>
+      
+      <div *ngFor="let peliculaConHorario of sala.movieHorios">
+        <h4>{{ peliculaConHorario.movie.title }}</h4>
+        <p>Género: {{ peliculaConHorario.movie.genre }}</p>
+        <p>Duración: {{ peliculaConHorario.movie.durationMovie }} min</p>
+        <img [src]="peliculaConHorario.movie.url" alt="Imagen de {{ peliculaConHorario.movie.title}}" />
+  
+        <div *ngFor="let horario of peliculaConHorario.horarios">
+          <p>Fecha: {{ horario.idHorario }}</p>
+          <p>Horas: {{ horario.hora.join(', ') }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
