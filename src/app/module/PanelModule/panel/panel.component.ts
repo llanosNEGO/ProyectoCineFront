@@ -2,6 +2,8 @@ import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReservationService } from '../../ReservationModule/reservation.service';
 import { Reservation } from '../../../models/Reservation';
+import { MovieApiService } from '../../MovieModule/data-access/movie-api.service';
+import { CinemaApiService } from '../../CinemasModule/data-access/cinema-api.service';
 
 @Component({
   selector: 'app-panel',
@@ -15,21 +17,14 @@ export class PanelComponent {
   //vista:
   showReservations: boolean = false;
   showMovies: boolean = false;
+  showCines: boolean = false;
 
   reservations: Reservation[] = []; // Cambiado a un arreglo de Reservation[]
 
-  products: any = [
-    {
-      codigo: '00056893',
-      imagen: 'assets/monitor.jpg',
-      modelo: '20CMX45',
-      producto: 'clau',
-      fabricante: 'Dell',
-      estado: 'Activo',
-      stock: 0,
-      precio: 92.0,
-    },
-  ];
+
+
+
+  
 
   // Método para alternar entre reservas y películas
   toggleReservations() {
@@ -42,26 +37,27 @@ export class PanelComponent {
     this.showMovies = true;
   }
 
+  toggleCines() {
+    this.showReservations = false;
+    this.showMovies = false;
+    this.showCines = false;
+  }
+
+
+
   // Constructor donde inyectas el servicio de reserva
-  public constructor(private reservationService: ReservationService) {}
+  public constructor(private reservationService: ReservationService, 
+    private movieService:MovieApiService,
+    private cinemas:CinemaApiService
+  ) {}
 
   // Método ngOnInit para inicializar los datos
   ngOnInit(): void {
     this.getReservation(); // Obtener todas las reservas
+    this.fetchMovies();//Obtner datos de mi api
   }
 
-  // Método para obtener las reservas del servicio
-  /*getReservations() {
-   this.reservationService.getAllReservations().subscribe(
-     (data: Reservation[]) => {  // Asegúrate de que el tipo aquí es Reservation[]
-       this.reservations = data;  // Asigna el arreglo de reservas
-       console.log('Reservations panel: ', this.reservations);
-     },
-     (error) => {
-       console.error('Error loading reservations:', error);
-     }
-   );
- }*/
+
 
   getReservation() {
     this.reservationService.getAllReservations().subscribe(
@@ -97,7 +93,38 @@ export class PanelComponent {
     }
     return null;
   }
-  
+
+  /************************************************************ */
+  //MovieDateBac
+  movies:any[]=[];
+
+  // Método para obtener las películas desde el servicio
+  fetchMovies() {
+    this.movieService.getMoviesbac().subscribe(
+      (data) => {
+        this.movies = data; // Asignamos la respuesta a `movies`
+        console.log('Movies fetched:', this.movies);
+      },
+      (error) => {
+        console.error('Error fetching movies:', error);
+      }
+    );
+  }
+
+  /******************************************************** */
+  Cinemas:any[]=[];
+  // Método para obtener las películas desde el servicio
+  fetchCines() {
+    this.movieService.getMoviesbac().subscribe(
+      (data) => {
+        this.movies = data; // Asignamos la respuesta a `movies`
+        console.log('Movies fetched:', this.movies);
+      },
+      (error) => {
+        console.error('Error fetching movies:', error);
+      }
+    );
+  }
 }
 
 

@@ -30,4 +30,17 @@ export class MovieApiService {
     );
   }
 
+  /********************************************* ***********************/
+  private apiUrl2 = 'http://127.0.0.1:8080/v1/movies/pelicula';
+
+
+  getMoviesbac(): Observable<any> {
+    return this.http.get<any>(this.apiUrl2).pipe(
+      catchError((error) => {
+        console.error('Error fetching movies:', error);
+        return throwError(error);
+      })
+    );
+  }
+
 }

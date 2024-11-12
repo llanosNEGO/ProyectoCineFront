@@ -31,4 +31,14 @@ export class HomeComponent {
     },
   ];
 
+  movies = [
+    { title: 'Una Boda de Locos', image: 'https://cdn.apis.cineplanet.com.pe/CDN/media/entity/get/FilmPosterGraphic/HO00002088?referenceScheme=HeadOffice&allowPlaceHolder=true' },
+    { title: 'La Francotiradora', image: 'https://cdn.apis.cineplanet.com.pe/CDN/media/entity/get/FilmPosterGraphic/HO00002088?referenceScheme=HeadOffice&allowPlaceHolder=true' },
+    { title: 'Pecados', image: 'https://cdn.apis.cineplanet.com.pe/CDN/media/entity/get/FilmPosterGraphic/HO00002104?referenceScheme=HeadOffice&allowPlaceHolder=true' },
+    { title: 'Mi Maestra Favorita', image: 'https://cdn.apis.cineplanet.com.pe/CDN/media/entity/get/FilmPosterGraphic/HO00002203?referenceScheme=HeadOffice&allowPlaceHolder=true' },
+    { title: 'Masacre en Texas', image: 'https://cdn.apis.cineplanet.com.pe/CDN/media/entity/get/FilmPosterGraphic/HO00002187?referenceScheme=HeadOffice&allowPlaceHolder=true' },
+    { title: 'Policías', image: 'https://cdn.apis.cineplanet.com.pe/CDN/media/entity/get/FilmPosterGraphic/HO00002008?referenceScheme=HeadOffice&allowPlaceHolder=true' },
+   
+  ];
+
 }

@@ -12,7 +12,7 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class CinemaDetailComponent {
 
-  cine?: Cinemas;
+  /*cine?: Cinemas;
 
   constructor(private cineService: CinemaApiService) {}
 
@@ -20,6 +20,6 @@ export class CinemaDetailComponent {
     this.cineService.obtenerCine().subscribe((data: Cinemas) => {
       this.cine = data;
     });
-  }
+  }*/
 
 }

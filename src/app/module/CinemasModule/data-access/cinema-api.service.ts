@@ -9,7 +9,7 @@ import { Cine } from '../../../models/Cine';
 })
 export class CinemaApiService {
   
-
+/*
   obtenerCine(): Observable<Cinemas> {
     const cineEjemplo: Cinemas = {
       idCinemas: 1,
@@ -52,6 +52,9 @@ export class CinemaApiService {
     // Devolver el cine como un Observable simulando una llamada de red
     return of(cineEjemplo);
   }
+    */
+
+
 
   private apiUrl = 'https://66e36081494df9a478e50f0a.mockapi.io/api/cine/cines';
   constructor(private http: HttpClient) {}
@@ -74,4 +77,17 @@ export class CinemaApiService {
       })
     );
   }
+
+  /************************************************************* */
+  private apiUrl2 = 'http://127.0.0.1:8080/v1/cines/cinemas';
+  //Obtenemos toda la data de las movies
+  getCineBac(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl2).pipe(
+      catchError((error) => {
+        console.error('Error fetching cinesBac:', error);
+        return throwError(error);
+      })
+    );
+  }
+
 }
