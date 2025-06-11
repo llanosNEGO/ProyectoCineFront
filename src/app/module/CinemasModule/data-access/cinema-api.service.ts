@@ -9,7 +9,6 @@ import { Cine } from '../../../models/Cine';
 })
 export class CinemaApiService {
   
-/*
   obtenerCine(): Observable<Cinemas> {
     const cineEjemplo: Cinemas = {
       idCinemas: 1,
@@ -52,7 +51,7 @@ export class CinemaApiService {
     // Devolver el cine como un Observable simulando una llamada de red
     return of(cineEjemplo);
   }
-    */
+  
 
 
 

@@ -1,46 +1,5 @@
 <footer class="bg-navy text-white bg-[#1f2937] py-12">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Nosotros -->
-        <div>
-          <h3 class="font-bold mb-4">Nosotros</h3>
-          <ul class="space-y-2">
-            <li><a href="#" class="hover:text-gray-300">Conócenos</a></li>
-            <li><a href="#" class="hover:text-gray-300">Trabaja con nosotros</a></li>
-            <li><a href="#" class="hover:text-gray-300">Ventas Corporativas</a></li>
-            <li><a href="#" class="hover:text-gray-300">Memoria de Gestión de Sostenibilidad 2023</a></li>
-          </ul>
-        </div>
-
-        <!-- Atención al cliente -->
-        <div>
-          <h3 class="font-bold mb-4">Atención al cliente</h3>
-          <ul class="space-y-2">
-            <li><a href="#" class="hover:text-gray-300">Ver mi boleta electrónica</a></li>
-            <li><a href="#" class="hover:text-gray-300">Ver lista de productos permitidos</a></li>
-            <li>
-              <a href="#" class="inline-flex items-center bg-transparent border border-white rounded-md px-4 py-2 hover:bg-white hover:text-navy transition-colors">
-                <span class="mr-2">✉</span>
-                Atención de Consultas o Incidencias por Contáctanos
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Políticas y condiciones -->
-        <div>
-          <h3 class="font-bold mb-4">Políticas y condiciones</h3>
-          <ul class="space-y-2">
-            <li><a href="#" class="hover:text-gray-300">Política de SST</a></li>
-            <li><a href="#" class="hover:text-gray-300">Política de Sostenibilidad</a></li>
-            <li><a href="#" class="hover:text-gray-300">Política de Diversidad e Inclusión</a></li>
-            <li><a href="#" class="hover:text-gray-300">Política de Privacidad</a></li>
-            <li><a href="#" class="hover:text-gray-300">Condiciones de uso y seguridad</a></li>
-            <li><a href="#" class="hover:text-gray-300">Reglas de Convivencia</a></li>
-            <li><a href="#" class="hover:text-gray-300">Términos y condiciones</a></li>
-          </ul>
-        </div>
-      </div>
 
       <!-- Social Media & Apps -->
       <div class="mt-8 pt-8 border-t border-gray-700">
@@ -48,21 +7,40 @@
           <div class="flex items-center gap-4">
             <span>Síguenos en:</span>
             <div class="flex gap-3">
-              <a href="#" class="hover:opacity-80"><img src="assets/facebook.svg" alt="Facebook" class="w-6 h-6"/></a>
-              <a href="#" class="hover:opacity-80"><img src="assets/twitter.svg" alt="Twitter" class="w-6 h-6"/></a>
-              <a href="#" class="hover:opacity-80"><img src="assets/youtube.svg" alt="YouTube" class="w-6 h-6"/></a>
-              <a href="#" class="hover:opacity-80"><img src="assets/instagram.svg" alt="Instagram" class="w-6 h-6"/></a>
+              <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-blue-500 hover:scale-110 transition-all duration-300">
+                <fa-icon [icon]="facebook" class="text-2xl"></fa-icon>
+              </a>
+              <a href="https://twitter.com" target="_blank" 
+                  class="text-gray-300 hover:text-blue-400 hover:scale-110 transition-all duration-300">
+                  <fa-icon [icon]="twitter" class="text-2xl"></fa-icon>
+              </a>    
+              <a href="https://instagram.com" target="_blank" 
+                class="text-gray-300 hover:text-pink-500 hover:scale-110 transition-all duration-300">
+                <fa-icon [icon]="instagram" class="text-2xl"></fa-icon>
+              </a>
+              <a href="https://wa.me/1234567890" target="_blank" 
+                class="text-gray-300 hover:text-green-500 hover:scale-110 transition-all duration-300">
+                <fa-icon [icon]="whatsapp" class="text-2xl"></fa-icon>
+              </a>
             </div>
           </div>
           <div class="flex items-center gap-4">
             <span>Descarga la app:</span>
-            <a href="#" class="hover:opacity-80"><img src="assets/playstore.svg" alt="Play Store" class="h-8"/></a>
-            <a href="#" class="hover:opacity-80"><img src="assets/appstore.svg" alt="App Store" class="h-8"/></a>
+            <a href="#" class="hover:opacity-80 transition-opacity">
+              <fa-icon [icon]="googlePlay" class="text-3xl text-green-500"></fa-icon>
+            </a>
+            <a href="#" class="hover:opacity-80 transition-opacity">
+              <fa-icon [icon]="appStore" class="text-3xl text-blue-500"></fa-icon>
+            </a>
           </div>
-          <a href="#" class="flex items-center gap-2 hover:opacity-80">
-            <img src="assets/book.svg" alt="Libro de Reclamaciones" class="w-6 h-6"/>
-            <span>Libro de Reclamaciones</span>
-          </a>
+          <div class="flex items-end gap-2">
+            <a href="#" class="hover:opacity-80 transition-opacity">
+              <fa-icon [icon]="libro" class="text-3xl text-blue-500"></fa-icon>
+            </a>
+            <span>Libro de Reclamos</span>
+
+          </div>
+  
         </div>
       </div>
     </div>

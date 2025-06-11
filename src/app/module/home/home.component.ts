@@ -2,30 +2,34 @@ import { Component } from '@angular/core';
 import { Slide, SliderComponent } from "../../shared/iu/slider/slider.component";
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HeaderComponent } from "../../shared/iu/header/header.component";
+
+import { MovieListComponent } from '../MovieModule/movie-list/movie-list.component';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SliderComponent, CommonModule, RouterModule, HeaderComponent],
+  imports: [SliderComponent, CommonModule, RouterModule, MovieListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
 
+  youtubeUrl = 'https://www.youtube.com/embed/9JIyINjMfcc?autoplay=1&mute=1&loop=1&playlist=9JIyINjMfcc';
+
   slides: Slide[] = [
     {
-      url: 'https://cinemarkla.modyocdn.com/uploads/1c41a890-8528-4f34-97c0-13b1340c0c05/original/BANNER_WEB_COMBINACION_VENOM.png',
+      url: 'https://cinemarkla.modyocdn.com/uploads/b8a61ab9-76e2-4aba-9c88-5b86ba8b809d/original/BANNER-WEB-XD.png',
       text: 'Slide 1',
       imagen: 'image..',
     },
     {
-      url: 'https://cinemarkla.modyocdn.com/uploads/1c4739fa-8e42-43b1-8b69-a0f93c7bdcf2/original/BANNER-HOME-VENOM-P.png',
+      url: 'https://www.cinerama.com.pe/_admin/assets/images/slider/LILO-Y-STITCH-LIVE-ACTION.jpg',
       text: 'Slide 2',
       imagen: 'image..',
     },
     {
-      url: 'https://cinemarkla.modyocdn.com/uploads/d1f47d99-13ac-4856-919a-33e890f73f1d/original/BANNER-HOME-COMBOS-ONLINE.png',
+      url: 'https://cinemarkla.modyocdn.com/uploads/93aafc54-1458-4597-929e-eb13fb496219/original/1-Banner-web-pelis.png',
       text: 'Slide 3',
       imagen: 'image..',
     },

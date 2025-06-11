@@ -12,6 +12,9 @@ import { DulceriaListComponent } from './module/DulceriaModule/dulceria-list/dul
 import { SeatMapComponent } from './module/ReservationModule/Sub-Component/seat-map/seat-map.component';
 import { HomeComponent } from './module/home/home.component';
 import { PanelComponent } from './module/PanelModule/panel/panel.component';
+import { TrabajaComponent } from './module/TrabajaModule/Main-Page/trabaja/trabaja.component';
+import { SocioComponent } from './module/SocioModule/Main-Page/socio/socio.component';
+import { CorporacionComponent } from './module/ComporacionModule/Main-Page/corporacion/corporacion.component';
 
 
 export const routes: Routes = [
@@ -24,6 +27,9 @@ export const routes: Routes = [
     {path: 'movieList', component:MovieListComponent},
     { path: 'movie/:id', component: MovieDetailComponent },
     { path: 'reservation/:id', component: ReservationComponent },
+    { path: 'evaluacion', component: TrabajaComponent},
+    {path: 'socio', component: SocioComponent},
+    {path: 'corporativo', component: CorporacionComponent},
 
     //Cinemas
     {path: 'cinemasList', component:CinemaListComponent},

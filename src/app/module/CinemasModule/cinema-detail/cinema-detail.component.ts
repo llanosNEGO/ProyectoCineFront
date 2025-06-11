@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
 import { NgFor, NgIf } from '@angular/common';
+import { Cinemas } from '../../../models/Cinemas';
+import { CinemaApiService } from '../data-access/cinema-api.service';
 
 @Component({
   selector: 'app-cinema-detail',
@@ -11,7 +13,7 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class CinemaDetailComponent {
 
-  /*cine?: Cinemas;
+  cine?: Cinemas;
 
   constructor(private cineService: CinemaApiService) {}
 
@@ -19,6 +21,6 @@ export class CinemaDetailComponent {
     this.cineService.obtenerCine().subscribe((data: Cinemas) => {
       this.cine = data;
     });
-  }*/
+  }
 
 }

@@ -1,0 +1,37 @@
+<section class="bg-gradient-to-b from-gray-900 to-black py-16 px-4 sm:px-6 lg:px-8 text-white">
+    <!-- Título -->
+    <div class="max-w-7xl mx-auto text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold text-red-400 mb-4">¡Únete a nuestra Familia!</h2>
+        <div class="w-24 h-1 bg-red-500 mx-auto"></div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Texto y botón -->
+        <div class="order-2 lg:order-1 space-y-6">
+            <p class="text-xl md:text-2xl leading-relaxed text-gray-300">
+                Por ser Socio Cineplanet disfruta de promociones exclusivas en restaurantes, viajes, compras y mucho más
+            </p>
+            <button 
+                type="button"
+                class="bg-red-500 hover:bg-red-600 text-black font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-red-500/20"
+            >
+                Explora Beneficios +
+            </button>
+        </div>
+
+        <!-- Imagen -->
+        <div class="order-1 lg:order-2 flex justify-center">
+            <img 
+                src="https://www.cineplanet.com.pe/images/socioDesk.png" 
+                alt="Socio" 
+                class="w-full max-w-md lg:max-w-none object-contain hover:scale-105 transition-transform duration-500"
+            >
+        </div>
+    </div>
+
+    <!-- Componente de tarjetas -->
+    <div class="max-w-7xl mx-auto mt-16">
+        <app-socio-card></app-socio-card>
+    </div>
+</section>

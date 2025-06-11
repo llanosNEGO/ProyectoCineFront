@@ -1,123 +1,26 @@
 <app-slider [slides]="slides"></app-slider>
 
 <section class="container mx-auto my-10 px-4 sm:px-6 lg:px-8">
-  <div class="flex flex-col md:flex-row items-center">
-    <div class="md:w-1/2 mb-6 md:mb-0">
-      <img src="https://cernaalt.github.io/Cinerama_Froend/img-2/espanol-movie-poster-grid-final-1024x735.png" alt="Movie Posters" class="w-full h-auto">
-    </div>
-    <div class="md:w-1/2 text-center md:text-left m-5">
-      <h1 class="text-4xl font-bold mb-4">DISFRUTA DE NUESTRO CINE</h1>
-      <p class="mb-6">
-        La pantalla grande en cada una de tus pantallas. Estrenos, clásicos, aventuras, romance, acción, suspenso y terror. Tenemos las producciones de Hollywood, así como del nuevo cine latinoamericano. Tu boleto está aquí.
-      </p>
-      <a href="/movieList" class="inline-block bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition-colors duration-300">
-        VER PELÍCULAS
-      </a>
-    </div>
-  </div>
+    <p class="text-gray-500 text-4xl">En Cartelera </p>
+    <app-movie-list></app-movie-list>
 </section>
 
-  <div class="w-full h-1 bg-gray-800"></div>
-
-  <section class="container mx-auto my-10 px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col-reverse lg:flex-row items-center">
-      <div class="lg:w-1/2 text-center lg:text-left mb-6 lg:mb-0">
-        <h1 class="text-4xl font-bold mb-4">Disfruta</h1>
-        <p class="mb-6">
-          CINERAMA tiene las Aventuras increíbles para ver y disfrutar en familia, sin límites de edad. Viajen a mundos fantásticos, acompañados de sus personajes favoritos.
-        </p>
-        <a href="cartelera.html" class="inline-block bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition-colors duration-300">
-          VER TV EN FAMILIA
-        </a>
-      </div>
-      <div class="lg:w-1/2 relative">
-        <img src="https://cernaalt.github.io/Cinerama_Froend/img-2/plex-device-tv-module-1440x900.png" alt="TV Module" class="w-full h-auto">
-        <video playsinline autoplay muted preload="none" loop class="absolute inset-0 w-full h-full object-cover">
-          <source src="short/kid-tv-placeholder.mp4" type="video/mp4">
-        </video>
-      </div>
-    </div>
-  </section>
 
   <div class="w-full h-1 bg-gray-800"></div>
 
   <section class="bg-gray-100 py-10">
-    <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-screen-xl  mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold text-gray-800 mb-4">Te Brindamos</h1>
       <div class="flex flex-col lg:flex-row items-center justify-center">
-        <div class="lg:w-1/2 mb-6 lg:mb-0 flex justify-center">
-          <img src="https://cinemarkla.modyocdn.com/uploads/562195ad-b955-41d5-95d4-c91caff7f36e/original/POPUP-WEB-VENOM.png" alt="Venom" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+        <div class="lg:w-1/2 mb-6 lg:mb-0 flex px-4 justify-center">
+          <img src="https://cinemarkla.modyocdn.com/uploads/63f1c8f1-2b5c-462b-b961-9645f6f93c11/original/banner-promo-DBOX.png" alt="Venom" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
         </div>
-        <div class="lg:w-1/2 text-center">
-          <h1 class="text-4xl font-bold text-gray-800 mb-4">Mantente al día, a la hora, al minuto.</h1>
-          <p class="mb-6 text-gray-600">
-            Hoy más que nunca, es fundamental estar bien enterado de los acontecimientos del mundo. Buscas precisión y objetividad. Infórmate en los mejores noticiarios y forma tu propia opinión.
-          </p>
-          <button type="button" class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition-colors duration-300">
-            VER NOTICIAS AHORA
-          </button>
+        <div class="lg:w-1/2 mb-6 lg:mb-0 flex px-4 justify-center">
+          
+          <img src="https://cinemarkla.modyocdn.com/uploads/d7f31c4a-611e-417d-bb4e-56ec13f7bb1f/original/promo-xd-web.png" alt="Venom" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
         </div>
       </div>
     </div>
   </section>
 
   <div class="w-full h-1 bg-gray-800"></div>
-
-  <section class="container mx-auto my-10 px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold">¿Preguntas Frecuentes?</h1>
-    </div>
-    <div class="space-y-4">
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <button class="w-full px-4 py-2 text-left font-medium text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors duration-300" type="button" data-toggle="collapse" data-target="#faq1" aria-expanded="false" aria-controls="faq1">
-          ¿Qué es CINERAMA?
-        </button>
-        <div id="faq1" class="collapse">
-          <div class="px-4 py-2 text-gray-700">
-            CINERAMA es un espacio acondicionado para la exhibición de películas compuesto por lo general de una pantalla de proyección y un patio de butacas.
-          </div>
-        </div>
-      </div>
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <button class="w-full px-4 py-2 text-left font-medium text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors duration-300" type="button" data-toggle="collapse" data-target="#faq2" aria-expanded="false" aria-controls="faq2">
-          ¿Cuánto cuesta CINERAMA?
-        </button>
-        <div id="faq2" class="collapse">
-          <div class="px-4 py-2 text-gray-700">
-            Las Cinemar su costo es de S/ 14 para las películas 2D en estreno, y S/ 12 para las películas 2D en cartelera. Los precios de las entradas 3D son de S/ 19 para las películas en estreno, y S/ 17 para las películas en cartelera.
-          </div>
-        </div>
-      </div>
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <button class="w-full px-4 py-2 text-left font-medium text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors duration-300" type="button" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3">
-          ¿Dónde Puedo encontrar el Cine?
-        </button>
-        <div id="faq3" class="collapse">
-          <div class="px-4 py-2 text-gray-700">
-            <h6 class="font-medium">Cinemar Perú cuenta con 9 cines en 7 ciudades del país:</h6>
-            <br>
-            <p>Lima:<br>
-            Cinerama Pacífico: Av. José Pardo 121, Miraflores<br>
-            Cinerama Minka: Av. Argentina 3093, Callao</p>
-            <br>
-            <p>Chimbote:<br>
-            Cinerama Chimbote: Av. 2 de Mayo 308, Chimbote</p>
-            <br>
-            <p>Trujillo:<br>
-            Cinerama Mall del Sur: Av. José de Lama 1600, Trujillo</p>
-            <br>
-            <p>Iquitos:<br>
-            Cinerama MegaPlaza: Av. Próceres de la Independencia 1034, Iquitos</p>
-            <br>
-            <p>Piura:<br>
-            Cinerama Real Plaza: Av. Grau 601, Piura</p>
-            <br>
-            <p>Cajamarca:<br>
-            Cinerama El Quinde: Av. Los Maestros S/N, Cajamarca</p>
-            <br>
-            <p>Tarapoto:<br>
-            Cinerama Mall Aventura Plaza: Av. Jorge Chávez 250, Tarapoto</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
