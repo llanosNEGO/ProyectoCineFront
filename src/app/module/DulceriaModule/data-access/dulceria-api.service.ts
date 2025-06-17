@@ -7,25 +7,46 @@ import { Dulceria } from '../../../models/Dulceria';
   providedIn: 'root'
 })
 export class DulceriaApiService {
-
-  private apiUrl = 'https://671b02feacf9aa94f6ac4a29.mockapi.io/Dulceria';
+  public apiUrl = 'http://localhost:9090/v1/dulceria';
   constructor(private http: HttpClient) {}
 
-  //Obtenemos toda la data de las movies 
-  getDulceria(): Observable<Dulceria[]> {
-    return this.http.get<Dulceria[]>(this.apiUrl).pipe(
-      catchError((error) => {
-        console.error('Error fetching movies:', error);
-        return throwError(error);
+  getAllDulceria(): Observable<Dulceria[]> {
+    return this.http.get<Dulceria[]>(`${this.apiUrl}/dulcerias`).pipe(
+      catchError((error: any) => {
+        console.error('Error al obtener dulcería:', error);
+        return throwError(() => new Error('Error al obtener dulcería'));
       })
     );
   }
-
-  getMovieById(id: string): Observable<Dulceria> {
-    return this.http.get<Dulceria>(`${this.apiUrl}/${id}`).pipe(
-      catchError((error) => {
-        console.error('Error fetching movie details:', error);
-        return throwError(error);
+  getDulceriaById(id: number): Observable<Dulceria> {
+    return this.http.get<Dulceria>(`${this.apiUrl}/dulceria/${id}`).pipe(
+      catchError((error: any) => {
+        console.error(`Error al obtener dulcería con ID ${id}:`, error);
+        return throwError(() => new Error(`Error al obtener dulcería con ID ${id}`));
+      })
+    );
+  }
+  createDulceria(dulceria: Dulceria): Observable<Dulceria> {
+    return this.http.post<Dulceria>(`${this.apiUrl}/dulceria`, dulceria).pipe(
+      catchError((error: any) => {
+        console.error('Error al crear dulcería:', error);
+        return throwError(() => new Error('Error al crear dulcería'));
+      })
+    );
+  }
+  updateDulceria(id: number, dulceria: Dulceria): Observable<Dulceria> {
+    return this.http.put<Dulceria>(`${this.apiUrl}/dulceria/${id}`, dulceria).pipe(
+      catchError((error: any) => {
+        console.error(`Error al actualizar dulcería con ID ${id}:`, error);
+        return throwError(() => new Error(`Error al actualizar dulcería con ID ${id}`));
+      })
+    );  
+  }
+  deleteDulceria(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/dulceria/${id}`).pipe(
+      catchError((error: any) => {
+        console.error(`Error al eliminar dulcería con ID ${id}:`, error);
+        return throwError(() => new Error(`Error al eliminar dulcería con ID ${id}`));
       })
     );
   }

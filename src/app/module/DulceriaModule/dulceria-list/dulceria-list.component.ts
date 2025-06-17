@@ -21,7 +21,7 @@ export class DulceriaListComponent {
   constructor(private dulceriaService: DulceriaApiService, private router: Router) {}
 
   ngOnInit(): void {
-    this.dulceriaService.getDulceria().subscribe((data: Dulceria[]) => {
+    this.dulceriaService.getAllDulceria().subscribe((data: Dulceria[]) => {
       this.dulceria = data;
     });
   }
