@@ -4,6 +4,7 @@ import { Cine } from '../../../models/Cine';
 import { CinemaApiService } from '../data-access/cinema-api.service';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
+import { Cinemas } from '../../../models/Cinemas';
 
 @Component({
   selector: 'app-cinema-list',
@@ -13,19 +14,19 @@ import { NgFor } from '@angular/common';
   styles: ``
 })
 export class CinemaListComponent {
-  cine: Cine[] = [];
+  cine: Cinemas[] = [];
 
 
   /***************************MockApi******************************/
   constructor(private cineService: CinemaApiService,private router:Router) {}
 
   ngOnInit(): void {
-    this.cineService.getCine().subscribe((data: Cine[]) => {
+    this.cineService.getAllCinemas().subscribe((data: Cinemas[]) => {
       this.cine = data;
     });
   }
 
-  viewDetails(id: string): void {
+  viewDetails(id: number): void {
     this.router.navigate(['/cinema', id]);
   }
 

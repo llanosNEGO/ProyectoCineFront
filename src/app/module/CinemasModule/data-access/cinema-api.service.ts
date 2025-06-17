@@ -1,92 +1,63 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, throwError } from 'rxjs';
-import { Cinemas } from '../../../models/Cinemas';
 import { HttpClient } from '@angular/common/http';
-import { Cine } from '../../../models/Cine';
+import { Observable, catchError, throwError } from 'rxjs';
+import { Cinemas } from '../../../models/Cinemas';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CinemaApiService {
-  
-  obtenerCine(): Observable<Cinemas> {
-    const cineEjemplo: Cinemas = {
-      idCinemas: 1,
-      nameCinemas: 'Cineplex',
-      address: 'Av. Principal 123',
-      description: '',
-      city: 'Lima',
-      rooms: [
-        {
-          idRooms: 1,
-          name: 'Sala 1',
-          rows: 2,
-          colum: 2,
+  private apiUrl = 'http://localhost:9090/v1/cines';
 
-          movieHorios: [
-            {
-              movie: {
-                id: '101',
-                title: 'Avengers: Endgame',
-                genre: 'Acción',
-                durationMovie: '180',
-                age: 'Mayores de 13 años',
-                sinopsis: 'Los Vengadores se enfrentan a su mayor desafío...',
-                director: 'Anthony y Joe Russo',
-                url: 'url_imagen_avengers',
-                idioma: ['Español', 'Inglés'],
-                status: ['Estreno'],
-                urlTrailer: 'url_trailer_avengers',
-                idCinemas: ['1', '2'],
-                disponible: ['14:00', '18:00', '21:00'],
-              },
-
-              horarios: [{ idHorario: 1, hora: ['10: 00 Am', '10: 00 Am'] }],
-            },
-          ],
-        },
-      ],
-    };
-
-    // Devolver el cine como un Observable simulando una llamada de red
-    return of(cineEjemplo);
-  }
-  
-
-
-
-  private apiUrl = 'https://66e36081494df9a478e50f0a.mockapi.io/api/cine/cines';
   constructor(private http: HttpClient) {}
 
-  //Obtenemos toda la data de las movies
-  getCine(): Observable<Cine[]> {
-    return this.http.get<Cine[]>(this.apiUrl).pipe(
-      catchError((error) => {
-        console.error('Error fetching cines:', error);
-        return throwError(error);
+  // Obtener todos los cines
+  getAllCinemas(): Observable<Cinemas[]> {
+    return this.http.get<Cinemas[]>(`${this.apiUrl}/cinemas`).pipe(
+      catchError((error: any) => {
+        console.error('Error al obtener cines:', error);
+        return throwError(() => new Error('Error al obtener cines'));
       })
     );
   }
 
-  getCineById(id: string): Observable<Cine> {
-    return this.http.get<Cine>(`${this.apiUrl}/${id}`).pipe(
-      catchError((error) => {
-        console.error('Error fetching cine details:', error);
-        return throwError(error);
+  // Obtener un cine por ID
+  getCinemaById(id: number): Observable<Cinemas> {
+    return this.http.get<Cinemas>(`${this.apiUrl}/cinema/${id}`).pipe(
+      catchError((error: any) => {
+        console.error(`Error al obtener cine con ID ${id}:`, error);
+        return throwError(() => new Error(`Error al obtener cine con ID ${id}`));
       })
     );
   }
 
-  /************************************************************* */
-  private apiUrl2 = 'http://127.0.0.1:8080/v1/cines/cinemas';
-  //Obtenemos toda la data de las movies
-  getCineBac(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl2).pipe(
-      catchError((error) => {
-        console.error('Error fetching cinesBac:', error);
-        return throwError(error);
+  // Crear nuevo cine
+  createCinema(cinema: Cinemas): Observable<Cinemas> {
+    return this.http.post<Cinemas>(`${this.apiUrl}/cinema`, cinema).pipe(
+      catchError((error: any) => {
+        console.error('Error al crear cine:', error);
+        return throwError(() => new Error('Error al crear cine'));
       })
     );
   }
 
+  // Actualizar cine existente
+  updateCinema(id: number, cinema: Cinemas): Observable<Cinemas> {
+    return this.http.put<Cinemas>(`${this.apiUrl}/cinema/${id}`, cinema).pipe(
+      catchError((error: any) => {
+        console.error(`Error al actualizar cine con ID ${id}:`, error);
+        return throwError(() => new Error(`Error al actualizar cine con ID ${id}`));
+      })
+    );
+  }
+
+  // Eliminar cine
+  deleteCinema(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/cinema/${id}`).pipe(
+      catchError((error: any) => {
+        console.error(`Error al eliminar cine con ID ${id}:`, error);
+        return throwError(() => new Error(`Error al eliminar cine con ID ${id}`));
+      })
+    );
+  }
 }

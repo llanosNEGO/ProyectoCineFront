@@ -1,5 +1,5 @@
 export interface Cine {
-    id: string;
+    id: number;
     name: string;
     address: string;
     disponible: string[];

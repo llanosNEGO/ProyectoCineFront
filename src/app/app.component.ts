@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { CinemaDetailComponent } from "./module/CinemasModule/cinema-detail/cinema-detail.component";
 import { HomeComponent } from "./module/home/home.component";
-import { ReservationService } from './module/ReservationModule/reservation.service';
 import { FooterComponent } from "./shared/iu/footer/footer.component";
 
 
@@ -20,12 +19,8 @@ import { FooterComponent } from "./shared/iu/footer/footer.component";
     RouterOutlet,
     HeaderComponent,
     NgxSonnerToaster,
-    SliderComponent,
-    MovieCardComponent,
     HttpClientModule,
     CommonModule,
-    CinemaDetailComponent,
-    HomeComponent,
     FooterComponent
 ],
   templateUrl: './app.component.html',
@@ -56,18 +51,18 @@ export class AppComponent {
   movieSummaries: any[] = [];
   Reservation:any[]=[];
 
-  constructor(private movieService: MovieApiService,private reservationService:ReservationService) {}
+  constructor(private movieService: MovieApiService) {}
 
   ngOnInit(): void {
     
 
     this.getMovie();
-    this.getReservation();
+
     
   }
 
   getMovie(){
-    this.movieService.getMovies().subscribe(
+    this.movieService.getAllMovies().subscribe(
       (data) => {
         this.Movie = data;
         console.log('Movies loaded:', this.Movie);
@@ -78,16 +73,4 @@ export class AppComponent {
     );
   }
 
-
-  getReservation() {
-    this.reservationService.getAllReservations().subscribe(
-      (data)=>{
-        this.Reservation=data;
-        console.log('Reservation: ',this.Reservation);
-      },
-      (error) => {
-        console.error('Error loading reservation:', error);
-      }
-    );
-  }
 }

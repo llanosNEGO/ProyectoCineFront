@@ -7,38 +7,47 @@ import { Movie } from '../../../models/Movie';
   providedIn: 'root',
 })
 export class MovieApiService {
-  private apiUrl = 'https://66e36081494df9a478e50f0a.mockapi.io/api/cine/Movie';
+  private baseUrl = 'http://localhost:9090/v1/movies';
 
   constructor(private http: HttpClient) {}
 
-  //Obtenemos toda la data de las movies 
-  getMovies(): Observable<Movie[]> {
-    return this.http.get<Movie[]>(this.apiUrl).pipe(
-      catchError((error) => {
-        console.error('Error fetching movies:', error);
-        return throwError(error);
+  getAllMovies(): Observable<Movie[]> {
+    return this.http.get<Movie[]>(`${this.baseUrl}/pelicula`).pipe(
+      catchError((error: any) => {
+        console.error('Error al obtener películas:', error);
+        return throwError(() => new Error('Error al obtener películas'));
       })
     );
   }
-
-  getMovieById(id: string): Observable<Movie> {
-    return this.http.get<Movie>(`${this.apiUrl}/${id}`).pipe(
-      catchError((error) => {
-        console.error('Error fetching movie details:', error);
-        return throwError(error);
+  getMovieById(id: number): Observable<Movie> {
+    return this.http.get<Movie>(`${this.baseUrl}/pelicula/${id}`).pipe(
+      catchError((error: any) => {
+        console.error('Error al obtener película', error);
+        return throwError(() => new Error('Error al obtener película'));
       })
     );
   }
-
-  /********************************************* ***********************/
-  private apiUrl2 = 'http://127.0.0.1:8080/v1/movies/pelicula';
-
-
-  getMoviesbac(): Observable<any> {
-    return this.http.get<any>(this.apiUrl2).pipe(
-      catchError((error) => {
-        console.error('Error fetching movies:', error);
-        return throwError(error);
+  createMovie(movie: Movie): Observable<Movie> {
+    return this.http.post<Movie>(`${this.baseUrl}/pelicula`, movie).pipe(
+       catchError((error: any) => {
+        console.error('Error al crear película', error);
+        return throwError(() => new Error('Error al crear película'));
+      })
+    );
+  }
+  updateMovie(id: number, movie: Movie): Observable<Movie> {
+    return this.http.put<Movie>(`${this.baseUrl}/pelicula/${id}`, movie).pipe(
+      catchError((error: any) => {
+        console.error('Error al actualizar película', error);
+        return throwError(() => new Error('Error al actualizar película'));
+      })
+    );
+  }
+  deleteMovie(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/pelicula/${id}`).pipe(
+      catchError((error: any) => {
+        console.error('Error al eliminar película', error);
+        return throwError(() => new Error('Error al eliminar película'));
       })
     );
   }

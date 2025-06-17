@@ -1,13 +1,11 @@
+import { Cities } from "./City";
 import { Rooms } from "./Rooms";
 
 export interface Cinemas {
   idCinemas: number;
-  nameCinemas: string;
-  city: String;
+  nameCinema: string;
   description: string;
   address: string;
-
-  //un cine tiene diferentes salas
-  rooms: Rooms[];
-
+  city: Cities;
+  rooms?: Rooms[];
 }
