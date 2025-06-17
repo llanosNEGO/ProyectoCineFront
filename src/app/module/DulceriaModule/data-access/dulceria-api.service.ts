@@ -11,7 +11,7 @@ export class DulceriaApiService {
   constructor(private http: HttpClient) {}
 
   getAllDulceria(): Observable<Dulceria[]> {
-    return this.http.get<Dulceria[]>(`${this.apiUrl}/dulcerias`).pipe(
+    return this.http.get<Dulceria[]>(`${this.apiUrl}`).pipe(
       catchError((error: any) => {
         console.error('Error al obtener dulcería:', error);
         return throwError(() => new Error('Error al obtener dulcería'));
@@ -19,7 +19,7 @@ export class DulceriaApiService {
     );
   }
   getDulceriaById(id: number): Observable<Dulceria> {
-    return this.http.get<Dulceria>(`${this.apiUrl}/dulceria/${id}`).pipe(
+    return this.http.get<Dulceria>(`${this.apiUrl}/${id}`).pipe(
       catchError((error: any) => {
         console.error(`Error al obtener dulcería con ID ${id}:`, error);
         return throwError(() => new Error(`Error al obtener dulcería con ID ${id}`));
@@ -27,7 +27,7 @@ export class DulceriaApiService {
     );
   }
   createDulceria(dulceria: Dulceria): Observable<Dulceria> {
-    return this.http.post<Dulceria>(`${this.apiUrl}/dulceria`, dulceria).pipe(
+    return this.http.post<Dulceria>(`${this.apiUrl}`, dulceria).pipe(
       catchError((error: any) => {
         console.error('Error al crear dulcería:', error);
         return throwError(() => new Error('Error al crear dulcería'));
@@ -35,7 +35,7 @@ export class DulceriaApiService {
     );
   }
   updateDulceria(id: number, dulceria: Dulceria): Observable<Dulceria> {
-    return this.http.put<Dulceria>(`${this.apiUrl}/dulceria/${id}`, dulceria).pipe(
+    return this.http.put<Dulceria>(`${this.apiUrl}/${id}`, dulceria).pipe(
       catchError((error: any) => {
         console.error(`Error al actualizar dulcería con ID ${id}:`, error);
         return throwError(() => new Error(`Error al actualizar dulcería con ID ${id}`));
@@ -43,7 +43,7 @@ export class DulceriaApiService {
     );  
   }
   deleteDulceria(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/dulceria/${id}`).pipe(
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       catchError((error: any) => {
         console.error(`Error al eliminar dulcería con ID ${id}:`, error);
         return throwError(() => new Error(`Error al eliminar dulcería con ID ${id}`));
