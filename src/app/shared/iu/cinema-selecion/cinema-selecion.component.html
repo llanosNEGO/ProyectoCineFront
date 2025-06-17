@@ -8,10 +8,10 @@
   </button>
 
   <div *ngIf="isExpanded" 
-       class="p-4 border-t border-red-600 text-white">
+       class="p-4 border-t border-red-600 text-gray-600">
     <p class="text-g mb-4">Horarios y funciones disponibles...</p>
     
-    <div class="mb-4 text-white">
+    <div class="mb-4 text-gray-600">
       <div class="flex flex-wrap gap-2">
         <div *ngFor="let format of formats">
           <h3>{{ format }}</h3>
