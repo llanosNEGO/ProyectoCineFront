@@ -4,7 +4,8 @@ export interface Cine {
     address: string;
     disponible: string[];
     sala: string[];
-    Horarios: string[];
+    horarios: string[];
     urlImage: string;
     city: string;
+    rooms: any[];
 }

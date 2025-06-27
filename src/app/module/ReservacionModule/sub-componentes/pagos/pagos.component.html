@@ -1,0 +1,153 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-md mx-auto px-4">
+    <!-- Botón de Volver -->
+    <button
+      (click)="goBack()"
+      class="flex items-center text-blue-600 hover:text-blue-800 mb-6 transition-colors"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+      </svg>
+      Volver a selección de asientos
+    </button>
+
+    <!-- Contenedor Principal -->
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+      <!-- Encabezado -->
+      <div class="bg-gradient-to-r from-red-600 to-red-700 p-6 text-white">
+        <h1 class="text-2xl font-bold">Detalles del pago</h1>
+        <p class="text-red-100 mt-1">Complete su información de pago</p>
+      </div>
+
+      <!-- Contenido -->
+      <div class="p-6">
+        <!-- Resumen de Compra -->
+        <div class="bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200">
+          <h2 class="font-semibold text-lg mb-3 text-gray-800">Resumen de tu compra</h2>
+          
+          <div class="space-y-3">
+            <div class="flex justify-between">
+              <span class="text-gray-600">Asientos seleccionados:</span>
+              <span class="font-medium">{{ selectedSeats.join(', ') }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Cantidad:</span>
+              <span class="font-medium">{{ selectedSeats.length }} asientos</span>
+            </div>
+            <div class="border-t border-gray-200 my-2"></div>
+            <div class="flex justify-between text-lg font-bold">
+              <span>Total a pagar:</span>
+              <span class="text-red-600">S/ {{ totalAmount }}.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulario de Pago -->
+        <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="space-y-5">
+          <!-- Número de Tarjeta -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Número de tarjeta</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
+                  <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <input
+                type="text"
+                formControlName="cardNumber"
+                (input)="formatCardNumber()"
+                placeholder="1234 5678 9012 3456"
+                class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+              />
+            </div>
+            <div *ngIf="f['cardNumber'].invalid && f['cardNumber'].touched" class="mt-1 text-sm text-red-600">
+              <span *ngIf="f['cardNumber'].errors?.['required']">Este campo es requerido</span>
+              <span *ngIf="f['cardNumber'].errors?.['pattern']">Formato de tarjeta inválido</span>
+            </div>
+          </div>
+
+          <!-- Titular de la Tarjeta -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Nombre del titular</label>
+            <input
+              type="text"
+              formControlName="cardHolder"
+              placeholder="Como aparece en la tarjeta"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+            />
+            <div *ngIf="f['cardHolder'].invalid && f['cardHolder'].touched" class="mt-1 text-sm text-red-600">
+              <span>Nombre del titular es requerido</span>
+            </div>
+          </div>
+
+          <!-- Fecha y CVV -->
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Fecha de Expiración -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Fecha de expiración</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  formControlName="expiryDate"
+                  placeholder="MM/AA"
+                  class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+                />
+              </div>
+              <div *ngIf="f['expiryDate'].invalid && f['expiryDate'].touched" class="mt-1 text-sm text-red-600">
+                <span *ngIf="f['expiryDate'].errors?.['required']">Este campo es requerido</span>
+                <span *ngIf="f['expiryDate'].errors?.['pattern']">Formato MM/AA requerido</span>
+              </div>
+            </div>
+
+            <!-- CVV -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Código CVV</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <input
+                  type="password"
+                  formControlName="cvv"
+                  placeholder="•••"
+                  class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+                />
+              </div>
+              <div *ngIf="f['cvv'].invalid && f['cvv'].touched" class="mt-1 text-sm text-red-600">
+                <span *ngIf="f['cvv'].errors?.['required']">Este campo es requerido</span>
+                <span *ngIf="f['cvv'].errors?.['minlength'] || f['cvv'].errors?.['maxlength']">3 o 4 dígitos requeridos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón de Pago -->
+          <button
+            type="submit"
+            [disabled]="paymentForm.invalid"
+            class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-4 rounded-lg font-bold shadow-md hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            Confirmar pago de S/ {{ totalAmount }}.00
+          </button>
+        </form>
+
+        <!-- Medios de Pago Seguros -->
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <p class="text-xs text-gray-500 text-center">Pago seguro con:</p>
+          <div class="flex justify-center space-x-6 mt-3">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visa/visa-original.svg" class="h-8" alt="Visa">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mastercard/mastercard-original.svg" class="h-8" alt="Mastercard">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

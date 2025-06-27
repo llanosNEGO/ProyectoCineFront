@@ -26,6 +26,7 @@ export class MovieDetailComponent {
   safeUrl: SafeResourceUrl | undefined;
   error: string | null = null;
   loading = true;
+  showReservacion = false;
  
 
   constructor(
@@ -39,6 +40,7 @@ export class MovieDetailComponent {
   /*******************************Api********************************************** */
 ngOnInit(): void {
   const movieId = this.route.snapshot.paramMap.get('id');
+
   if (movieId) {
     const id = Number(movieId); // Convertir a número
     if (isNaN(id)) {
@@ -75,15 +77,17 @@ loadCinemas(): void {
   this.cineService.getAllCinemas().subscribe({
     next: (data: any) => { // Usa any temporalmente o crea interfaz correcta
       this.cine = data.map((cinema: any) => ({
-        id: cinema.idCinemas,
-        name: cinema.nameCinema,
+        id: cinema.id, 
+        name: cinema.name,
+        description: cinema.description,
         address: cinema.address,
-        disponible: [],
-        sala: [],
-        Horarios: [],
-        urlImage: '',
+        urlImage: cinema.urlImage,
+        disponible: cinema.disponible || [],
+        horarios: cinema.horarios || [],      
+        rooms: cinema.rooms || [],
         city: cinema.city?.nameCity || ''
       }));
+      console.log('Cines mapeados', this.cine);
     },
     error: (err: HttpErrorResponse) => {
       console.error('Error loading cinemas:', err);
@@ -92,7 +96,7 @@ loadCinemas(): void {
 }
 goToReservationWithDetails(cineName: string, format: string, time: string): void {
     if (this.movie) {
-      this.router.navigate(['/reservation'], {
+      this.router.navigate(['/reservacion'], {
         state: {
           movie: this.movie,
           cine: this.cine.find((cine) => cine.name === cineName),
@@ -111,5 +115,19 @@ goToReservationWithDetails(cineName: string, format: string, time: string): void
   extractVideoId(url: string): string {
     const videoIdMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
     return videoIdMatch ? videoIdMatch[1] : '';
+  }
+
+  // modal para abrir reserva
+
+  toggleReservacion() {
+    this.showReservacion = !this.showReservacion;
+    if(this.showReservacion){
+      setTimeout(() => {
+        const element = document.querySelector('.max-w-4xl.bg-gray-900');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      },100);
+    }
   }
 }

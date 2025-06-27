@@ -10,17 +10,24 @@ import { HomeComponent } from './module/home/home.component';
 import { TrabajaComponent } from './module/TrabajaModule/Main-Page/trabaja/trabaja.component';
 import { SocioComponent } from './module/SocioModule/Main-Page/socio/socio.component';
 import { CorporacionComponent } from './module/ComporacionModule/Main-Page/corporacion/corporacion.component';
+import { ReservacionComponent } from './module/ReservacionModule/reservacion/reservacion.component';
+import { PagosComponent } from './module/ReservacionModule/sub-componentes/pagos/pagos.component';
+import { SelecionSitiosComponent } from './module/ReservacionModule/sub-componentes/selecion-sitios/selecion-sitios.component';
 
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirige a home por defecto
     { path: 'login', component: LoginComponent },
     {path: 'register', component:RegisterComponent},
-    {path: 'movieList', component:MovieListComponent},
+    {path: 'movieLista', component:MovieListComponent},
     { path: 'movie/:id', component: MovieDetailComponent },
     { path: 'evaluacion', component: TrabajaComponent},
     {path: 'socio', component: SocioComponent},
     {path: 'corporativo', component: CorporacionComponent},
+    { path : 'reservacion/:id', component: ReservacionComponent},
+    {path: 'reservacion' , component: ReservacionComponent},
+    {path: 'pagos', component:PagosComponent},
+    {path: 'seleccion-sitios', component: SelecionSitiosComponent},
 
     //Cinemas
     {path: 'cinemasList', component:CinemaListComponent},

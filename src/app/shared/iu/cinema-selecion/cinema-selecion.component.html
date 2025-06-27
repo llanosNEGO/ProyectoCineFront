@@ -1,4 +1,4 @@
-<div class="border rounded-lg hover:shadow-md transition-shadow mb-2">
+<div class="border bg-gray-500 text-white rounded-lg hover:shadow-md transition-shadow mb-2">
   <button (click)="isExpanded = !isExpanded"
           class="w-full p-4 flex justify-between items-center text-left">
     <span class=" font-medium">{{ nameCinema }}</span>
@@ -8,15 +8,26 @@
   </button>
 
   <div *ngIf="isExpanded" 
-       class="p-4 border-t border-red-600 text-gray-600">
+       class="p-4 border-t border-red-600 text-white">
     <p class="text-g mb-4">Horarios y funciones disponibles...</p>
     
-    <div class="mb-4 text-gray-600">
-      <div class="flex flex-wrap gap-2">
-        <div *ngFor="let format of formats">
-          <h3>{{ format }}</h3>
-          <div *ngFor="let time of horarios" (click)="onTimeClick(format, time)">
-            <button class="time-button">{{ time }}</button>
+    <div class="mb-8 bg-white rounded-lg shadow-sm p-6">
+      <div class="flex flex-col gap-6 md:flex-row md:gap-8">
+        <div *ngFor="let format of formats" class="flex-1">
+          <h3 class="text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-100">
+            {{ format }}
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <button 
+              *ngFor="let time of horarios" 
+              (click)="onTimeClick(format, time)"
+              class="time-button py-2 px-3 rounded-md text-sm font-medium transition-all
+                    bg-gray-50 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700
+                    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
+                    active:bg-indigo-100"
+            >
+              {{ time }}
+            </button>
           </div>
         </div>
       </div>
