@@ -1,0 +1,45 @@
+<form [formGroup]="cinemaForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="nameCinema">Cinema Name</label>
+    <input id="nameCinema" type="text" formControlName="nameCinema">
+    <div *ngIf="cinemaForm.get('nameCinema')?.invalid && cinemaForm.get('nameCinema')?.touched">
+      Name is required (max 100 characters)
+    </div>
+  </div>
+
+  <div>
+    <label for="description">Description</label>
+    <textarea id="description" formControlName="description"></textarea>
+    <div *ngIf="cinemaForm.get('description')?.invalid && cinemaForm.get('description')?.touched">
+      Description is required (max 500 characters)
+    </div>
+  </div>
+
+  <div>
+    <label for="address">Address</label>
+    <input id="address" type="text" formControlName="address">
+    <div *ngIf="cinemaForm.get('address')?.invalid && cinemaForm.get('address')?.touched">
+      Address is required (max 200 characters)
+    </div>
+  </div>
+
+  <div>
+    <label for="urlImage">Image URL</label>
+    <input id="urlImage" type="text" formControlName="urlImage">
+    <div *ngIf="cinemaForm.get('urlImage')?.invalid && cinemaForm.get('urlImage')?.touched">
+      Max 500 characters
+    </div>
+  </div>
+
+  <div>
+    <label for="city">City</label>
+    <select id="city" formControlName="city">
+      <option *ngFor="let city of cities" [ngValue]="city">{{city.nameCity}}</option>
+    </select>
+    <div *ngIf="cinemaForm.get('city')?.invalid && cinemaForm.get('city')?.touched">
+      City is required
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="cinemaForm.invalid">Submit</button>
+</form>

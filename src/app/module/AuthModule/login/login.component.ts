@@ -27,9 +27,10 @@ export class LoginComponent {
     private authService: AuthUserService
   ) {
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
+      username : ['', Validators.required],
+      password : ['', Validators.required]
+    })
+    
   }
 
   async submit() {
@@ -37,17 +38,33 @@ export class LoginComponent {
       return;
     }
 
-    const { email, password } = this.form.value;
+    const { username, password } = this.form.value;
 
-    if (!email || !password) {
+    if (!username || !password) {
       toast.error('Por favor complete todos los campos correctamente.');
       return;
     }
 
     try {
-      await this.authService.loginUser({ email, password });
-      toast.success('Inicio de sesión exitoso');
-      this.router.navigateByUrl('/home');
+      await this.authService.login( username, password ).subscribe({
+        next: (response) => {
+          console.log('Respuesta Recibida: ', response)
+          toast.success('Inicio de sesión exitoso');
+          this.router.navigateByUrl('/home');
+
+        },
+        error: (error) =>{
+          if (error.status === 401) {
+            toast.error('Credenciales inválidas. Verifique sus datos.');
+          } else if (error.status === 404) {
+            toast.error('Usuario no encontrado.');
+          } else {
+            toast.error('Ocurrió un error inesperado');
+          }
+          console.error(error);
+        }
+      });
+
     } catch (error: any) {
       if (error.code === 'auth/user-not-found') {
         toast.error('Usuario no encontrado. Verifique sus credenciales.');

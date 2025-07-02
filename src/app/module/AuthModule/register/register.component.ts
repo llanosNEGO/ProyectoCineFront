@@ -46,30 +46,30 @@ export class RegisterComponent {
     name: this._formBuilder.control('', Validators.required),
   });
 
-  async submit() {
-    if (this.form.invalid) return;
+  // async submit() {
+  //   if (this.form.invalid) return;
   
-    try {
-      const { email, password, name } = this.form.value;
+  //   try {
+  //     const { email, password, name } = this.form.value;
   
-      if (!email || !password || !name) return;
+  //     if (!email || !password || !name) return;
   
-      // Intenta registrar al usuario
-      await this._authService.registerUser({ email, password });
+  //     // Intenta registrar al usuario
+  //     await this._authService.registerUser({ email, password });
   
-      // Si el registro es exitoso, muestra el mensaje y redirige
-      toast.success('Usuario creado correctamente');
-      //this._router.navigateByUrl('/movieList');
-    } catch (error: any) {
-      // Si el error es que el email ya está en uso, muestra el mensaje de error y no redirige
-      if (error.code === 'auth/email-already-in-use') {
-        toast.error('El correo electrónico ya está registrado. Intenta iniciar sesión o usa otro correo.');
-      } else {
-        // Para otros errores, muestra un mensaje de error general
-        toast.error('Ocurrió un error inesperado. Inténtalo nuevamente.');
-      }
-    }
-  }
+  //     // Si el registro es exitoso, muestra el mensaje y redirige
+  //     toast.success('Usuario creado correctamente');
+  //     //this._router.navigateByUrl('/movieList');
+  //   } catch (error: any) {
+  //     // Si el error es que el email ya está en uso, muestra el mensaje de error y no redirige
+  //     if (error.code === 'auth/email-already-in-use') {
+  //       toast.error('El correo electrónico ya está registrado. Intenta iniciar sesión o usa otro correo.');
+  //     } else {
+  //       // Para otros errores, muestra un mensaje de error general
+  //       toast.error('Ocurrió un error inesperado. Inténtalo nuevamente.');
+  //     }
+  //   }
+  // }
   
   
 

@@ -1,41 +1,51 @@
 import { inject, Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from '@angular/fire/auth';
+import { User } from '../../../models/User';
+import { environment } from '../../../../environment/environment';
+import { HttpClient } from '@angular/common/http';
 
-export interface User{
-  email:string;
-  password:string;
+interface LoginRequest{
+  username:string,
+  password:string  
 }
-
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthUserService {
 
-  private _auth = inject(Auth);
+  private url: string=`${environment.backendUrl}/login`; 
 
-  constructor() { }
+  constructor( private http: HttpClient) { }
+  
+  login (username : string , password : string){
+    const body : LoginRequest ={username, password };
 
-  registerUser(user:User){
-    return createUserWithEmailAndPassword(
-      this._auth,
-      user.email,
-      user.password
-    );
-
+    return this.http.post<any>(this.url, body);
   }
 
-  loginUser(user:User){
-    return signInWithEmailAndPassword(this._auth, user.email, user.password);
-  }
+
+  // private _auth = inject(Auth);
+
+  // registerUser(user:User){
+  //   return createUserWithEmailAndPassword(
+  //     this._auth,
+  //     user.email,
+  //     user.password
+  //   );
+
+  // }
+
+  // loginUser(user:User){
+  //   return signInWithEmailAndPassword(this._auth, user.email, user.password);
+  // }
   
 
-  signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
+  // signInWithGoogle() {
+  //   const provider = new GoogleAuthProvider();
 
-    // provider.setCustomParameters({ prompt: 'select_account' });
+  //   // provider.setCustomParameters({ prompt: 'select_account' });
 
-    return signInWithPopup(this._auth, provider);
-  }
+  //   return signInWithPopup(this._auth, provider);
+  // }
 }

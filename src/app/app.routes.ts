@@ -9,10 +9,13 @@ import { DulceriaListComponent } from './module/DulceriaModule/dulceria-list/dul
 import { HomeComponent } from './module/home/home.component';
 import { TrabajaComponent } from './module/TrabajaModule/Main-Page/trabaja/trabaja.component';
 import { SocioComponent } from './module/SocioModule/Main-Page/socio/socio.component';
-import { CorporacionComponent } from './module/ComporacionModule/Main-Page/corporacion/corporacion.component';
 import { ReservacionComponent } from './module/ReservacionModule/reservacion/reservacion.component';
 import { PagosComponent } from './module/ReservacionModule/sub-componentes/pagos/pagos.component';
 import { SelecionSitiosComponent } from './module/ReservacionModule/sub-componentes/selecion-sitios/selecion-sitios.component';
+import { PromocionesListComponent } from './module/PromocionesModule/promociones-list/promociones-list.component';
+import { CorporativoListComponent } from './module/CorporativoModule/corporativo-list/corporativo-list.component';
+import { AdministracionPanelComponent } from './module/AdministracionModule/administracion-panel/administracion-panel.component';
+import { CinemaCreateComponent } from './module/CinemasModule/cinema-create/cinema-create.component';
 
 
 export const routes: Routes = [
@@ -23,11 +26,17 @@ export const routes: Routes = [
     { path: 'movie/:id', component: MovieDetailComponent },
     { path: 'evaluacion', component: TrabajaComponent},
     {path: 'socio', component: SocioComponent},
-    {path: 'corporativo', component: CorporacionComponent},
+    {path: 'corporativo', component: CorporativoListComponent},
     { path : 'reservacion/:id', component: ReservacionComponent},
     {path: 'reservacion' , component: ReservacionComponent},
     {path: 'pagos', component:PagosComponent},
     {path: 'seleccion-sitios', component: SelecionSitiosComponent},
+    {path: 'promociones', component: PromocionesListComponent},
+    {path: 'Admin', component:AdministracionPanelComponent,
+        children:[
+            {path: 'cinemaCrear',component:CinemaCreateComponent},
+        ]
+    },
 
     //Cinemas
     {path: 'cinemasList', component:CinemaListComponent},
