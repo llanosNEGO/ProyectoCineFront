@@ -28,7 +28,6 @@ export class AdministracionPanelComponent {
     { title: 'Crear Cine', route: 'cinemaCrear', isActive: false },
     { title: 'Crear Sala', route: 'salaCrear', isActive: false },
     { title: 'Crear Función', route: 'funcionCrear', isActive: false },
-    { title: 'Usuarios', route: 'userList', isActive: false }
   ];
 
   setActiveItem(activeItem: MenuItem): void {

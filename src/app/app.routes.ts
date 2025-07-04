@@ -16,6 +16,9 @@ import { PromocionesListComponent } from './module/PromocionesModule/promociones
 import { CorporativoListComponent } from './module/CorporativoModule/corporativo-list/corporativo-list.component';
 import { AdministracionPanelComponent } from './module/AdministracionModule/administracion-panel/administracion-panel.component';
 import { CinemaCreateComponent } from './module/CinemasModule/cinema-create/cinema-create.component';
+import { MovieCreateComponent } from './module/MovieModule/movie-create/movie-create.component';
+import { PromocionesCreateComponent } from './module/PromocionesModule/promociones-create/promociones-create.component';
+import { DulceriaCreateComponent } from './module/DulceriaModule/dulceria-create/dulceria-create.component';
 
 
 export const routes: Routes = [
@@ -35,6 +38,11 @@ export const routes: Routes = [
     {path: 'Admin', component:AdministracionPanelComponent,
         children:[
             {path: 'cinemaCrear',component:CinemaCreateComponent},
+            {path: 'movieCrear' ,component:MovieCreateComponent},
+            {path: 'promocionesCrear' ,component:PromocionesCreateComponent},
+            {path: 'dulceriaCrear', component:DulceriaCreateComponent},
+            
+
         ]
     },
 

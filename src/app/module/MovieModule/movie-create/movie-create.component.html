@@ -1,0 +1,107 @@
+<div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Crear Nueva Película</h2>
+  
+  <form [formGroup]="movieForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <!-- Título -->
+    <div>
+      <label for="title" class="block text-sm font-medium text-gray-700">Título*</label>
+      <input type="text" id="title" formControlName="title" 
+             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="title?.invalid && (title?.dirty || title?.touched)">
+      <div *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="title?.errors?.['required']">El título es requerido</div>
+        <div *ngIf="title?.errors?.['minlength']">Mínimo 2 caracteres</div>
+        <div *ngIf="title?.errors?.['maxlength']">Máximo 100 caracteres</div>
+      </div>
+    </div>
+
+    <!-- URL de la imagen -->
+    <div>
+      <label for="url" class="block text-sm font-medium text-gray-700">URL de la imagen*</label>
+      <input type="text" id="url" formControlName="url" 
+             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="url?.invalid && (url?.dirty || url?.touched)">
+      <div *ngIf="url?.invalid && (url?.dirty || url?.touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="url?.errors?.['required']">La URL es requerida</div>
+        <div *ngIf="url?.errors?.['pattern']">Debe ser una URL válida (http:// o https://)</div>
+      </div>
+    </div>
+
+    <!-- Sinopsis -->
+    <div>
+      <label for="sinopsis" class="block text-sm font-medium text-gray-700">Sinopsis*</label>
+      <textarea id="sinopsis" formControlName="sinopsis" rows="3"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+                [class.border-red-500]="sinopsis?.invalid && (sinopsis?.dirty || sinopsis?.touched)"></textarea>
+      <div *ngIf="sinopsis?.invalid && (sinopsis?.dirty || sinopsis?.touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="sinopsis?.errors?.['required']">La sinopsis es requerida</div>
+        <div *ngIf="sinopsis?.errors?.['minlength']">Mínimo 10 caracteres</div>
+      </div>
+    </div>
+
+    <!-- Género -->
+    <div>
+      <label for="genre" class="block text-sm font-medium text-gray-700">Género*</label>
+      <input type="text" id="genre" formControlName="genre" 
+             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="genre?.invalid && (genre?.dirty || genre?.touched)">
+      <div *ngIf="genre?.invalid && (genre?.dirty || genre?.touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="genre?.errors?.['required']">El género es requerido</div>
+      </div>
+    </div>
+
+    <!-- Director -->
+    <div>
+      <label for="director" class="block text-sm font-medium text-gray-700">Director*</label>
+      <input type="text" id="director" formControlName="director" 
+             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="director?.invalid && (director?.dirty || director?.touched)">
+      <div *ngIf="director?.invalid && (director?.dirty || director?.touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="director?.errors?.['required']">El director es requerido</div>
+        <div *ngIf="director?.errors?.['minlength']">Mínimo 2 caracteres</div>
+      </div>
+    </div>
+
+    <!-- Duración -->
+    <div>
+      <label for="durationMovie" class="block text-sm font-medium text-gray-700">Duración*</label>
+      <input type="text" id="durationMovie" formControlName="durationMovie" 
+             placeholder="Ej: 120 min"
+             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="durationMovie?.invalid && (durationMovie?.dirty || durationMovie?.touched)">
+      <div *ngIf="durationMovie?.invalid && (durationMovie?.dirty || durationMovie?.touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="durationMovie?.errors?.['required']">La duración es requerida</div>
+        <div *ngIf="durationMovie?.errors?.['pattern']">Formato incorrecto (ej: "120 min")</div>
+      </div>
+    </div>
+
+    <!-- URL del tráiler -->
+    <div>
+      <label for="urlTrailer" class="block text-sm font-medium text-gray-700">URL del tráiler</label>
+      <input type="text" id="urlTrailer" formControlName="urlTrailer" 
+             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="urlTrailer?.invalid && (urlTrailer?.dirty || urlTrailer?.touched)">
+      <div *ngIf="urlTrailer?.invalid && (urlTrailer?.dirty || urlTrailer?.touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="urlTrailer?.errors?.['pattern']">Debe ser una URL válida (http:// o https://)</div>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-end space-x-3 pt-4">
+      <button type="button" (click)="onCancel()" 
+              class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+        Cancelar
+      </button>
+      <button type="submit" [disabled]="movieForm.invalid"
+              class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-indigo-300 disabled:cursor-not-allowed">
+        Guardar
+      </button>
+    </div>
+  </form>
+
+  <!-- Mensaje de éxito/error -->
+  <div *ngIf="message" [class]="isError ? 'bg-red-100 border-red-400 text-red-700' : 'bg-green-100 border-green-400 text-green-700'"
+       class="mt-4 border px-4 py-3 rounded relative" role="alert">
+    <span class="block sm:inline">{{ message }}</span>
+  </div>
+</div>
