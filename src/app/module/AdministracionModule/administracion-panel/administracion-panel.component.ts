@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 interface MenuItem {
   title: string;
-  route: string;  // Solo el segmento de la ruta (sin 'administracion/')
+  route: string;
   isActive: boolean;
 }
 
@@ -22,12 +22,11 @@ export class AdministracionPanelComponent {
     role: 'ADMIN'
   };
 
-  // Menú de navegación (solo los segmentos finales de la ruta)
+  // Menú de navegación
   menuItems: MenuItem[] = [
-    { title: 'Crear Película', route: 'movieCrear', isActive: false },
+    { title: 'Administrar Película', route: 'movieAdmin', isActive: false },
     { title: 'Crear Cine', route: 'cinemaCrear', isActive: false },
-    { title: 'Crear Sala', route: 'salaCrear', isActive: false },
-    { title: 'Crear Función', route: 'funcionCrear', isActive: false },
+    { title: 'Crear Dulceria', route: 'dulceriaCrear', isActive: false },
   ];
 
   setActiveItem(activeItem: MenuItem): void {

@@ -1,0 +1,154 @@
+<div class="max-w-2xl mx-auto p-6 m-4 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Editar Película</h2>
+  
+  <form [formGroup]="movieForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <!-- Título -->
+    <div>
+      <label for="title" class="block text-sm font-medium text-gray-700">Título*</label>
+      <input type="text" id="title" formControlName="title" 
+             class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
+      <div *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="f['title'].errors?.['required']">El título es requerido</div>
+        <div *ngIf="f['title'].errors?.['maxlength']">Máximo 100 caracteres</div>
+      </div>
+    </div>
+
+    <!-- URL de la imagen -->
+    <div>
+      <label for="url" class="block text-sm font-medium text-gray-700">URL de la imagen*</label>
+      <input type="text" id="url" formControlName="url" 
+             class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="f['url'].invalid && (f['url'].dirty || f['url'].touched)">
+      <div *ngIf="f['url'].invalid && (f['url'].dirty || f['url'].touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="f['url'].errors?.['required']">La URL es requerida</div>
+        <div *ngIf="f['url'].errors?.['pattern']">Debe ser una URL válida (http:// o https://)</div>
+      </div>
+    </div>
+
+    <!-- Idioma (multiple selección) -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Idioma*</label>
+      <div *ngFor="let lang of languages" class="flex items-center mt-2">
+        <input type="checkbox" [id]="'lang-'+lang" 
+               [checked]="isSelected(lang, 'idioma')"
+               (change)="toggleSelection(lang, 'idioma')"
+               class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+        <label [for]="'lang-'+lang" class="ml-2 block text-sm text-gray-900">{{lang}}</label>
+      </div>
+      <div *ngIf="f['idioma'].invalid && (f['idioma'].dirty || f['idioma'].touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="f['idioma'].errors?.['required']">Seleccione al menos un idioma</div>
+      </div>
+    </div>
+
+    <!-- Sinopsis -->
+    <div>
+      <label for="sinopsis" class="block text-sm font-medium text-gray-700">Sinopsis*</label>
+      <textarea id="sinopsis" formControlName="sinopsis" rows="3"
+                class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+                [class.border-red-500]="f['sinopsis'].invalid && (f['sinopsis'].dirty || f['sinopsis'].touched)"></textarea>
+      <div *ngIf="f['sinopsis'].invalid && (f['sinopsis'].dirty || f['sinopsis'].touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="f['sinopsis'].errors?.['required']">La sinopsis es requerida</div>
+        <div *ngIf="f['sinopsis'].errors?.['maxlength']">Máximo 500 caracteres</div>
+      </div>
+    </div>
+
+    <!-- Género -->
+    <div>
+      <label for="genre" class="block text-sm font-medium text-gray-700">Género*</label>
+      <input type="text" id="genre" formControlName="genre" 
+             class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="f['genre'].invalid && (f['genre'].dirty || f['genre'].touched)">
+      <div *ngIf="f['genre'].invalid && (f['genre'].dirty || f['genre'].touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="f['genre'].errors?.['required']">El género es requerido</div>
+      </div>
+    </div>
+
+    <!-- Status (multiple selección) -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Estado*</label>
+      <div *ngFor="let status of statusOptions" class="flex items-center mt-2">
+        <input type="checkbox" [id]="'status-'+status" 
+               [checked]="isSelected(status, 'status')"
+               (change)="toggleSelection(status, 'status')"
+               class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+        <label [for]="'status-'+status" class="ml-2 block text-sm text-gray-900">{{status}}</label>
+      </div>
+      <div *ngIf="f['status'].invalid && (f['status'].dirty || f['status'].touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="f['status'].errors?.['required']">Seleccione al menos un estado</div>
+      </div>
+    </div>
+
+    <!-- Director -->
+    <div>
+      <label for="director" class="block text-sm font-medium text-gray-700">Director*</label>
+      <input type="text" id="director" formControlName="director" 
+             class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="f['director'].invalid && (f['director'].dirty || f['director'].touched)">
+      <div *ngIf="f['director'].invalid && (f['director'].dirty || f['director'].touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="f['director'].errors?.['required']">El director es requerido</div>
+        <div *ngIf="f['director'].errors?.['maxlength']">Máximo 50 caracteres</div>
+      </div>
+    </div>
+
+    <!-- Duración -->
+    <div>
+      <label for="durationMovie" class="block text-sm font-medium text-gray-700">Duración*</label>
+      <input type="text" id="durationMovie" formControlName="durationMovie" 
+             placeholder="Ej: 120 min"
+             class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="f['durationMovie'].invalid && (f['durationMovie'].dirty || f['durationMovie'].touched)">
+      <div *ngIf="f['durationMovie'].invalid && (f['durationMovie'].dirty || f['durationMovie'].touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="f['durationMovie'].errors?.['required']">La duración es requerida</div>
+        <div *ngIf="f['durationMovie'].errors?.['pattern']">Formato incorrecto (ej: 120 min)</div>
+      </div>
+    </div>
+
+    <!-- Clasificación por edad -->
+    <div>
+      <label for="age" class="block text-sm font-medium text-gray-700">Clasificación*</label>
+      <select id="age" formControlName="age" 
+              class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+              [class.border-red-500]="f['age'].invalid && (f['age'].dirty || f['age'].touched)">
+        <option value="">Seleccione...</option>
+        <option *ngFor="let age of ageRatings" [value]="age">{{age}}</option>
+      </select>
+      <div *ngIf="f['age'].invalid && (f['age'].dirty || f['age'].touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="f['age'].errors?.['required']">La clasificación es requerida</div>
+      </div>
+    </div>
+
+    <!-- URL del tráiler -->
+    <div>
+      <label for="urlTrailer" class="block text-sm font-medium text-gray-700">URL del tráiler*</label>
+      <input type="text" id="urlTrailer" formControlName="urlTrailer" 
+             class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="f['urlTrailer'].invalid && (f['urlTrailer'].dirty || f['urlTrailer'].touched)">
+      <div *ngIf="f['urlTrailer'].invalid && (f['urlTrailer'].dirty || f['urlTrailer'].touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="f['urlTrailer'].errors?.['required']">La URL del tráiler es requerida</div>
+        <div *ngIf="f['urlTrailer'].errors?.['pattern']">Debe ser una URL válida (http:// o https://)</div>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-end space-x-3 pt-4">
+      <button type="button" (click)="onCancel()" 
+              class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+        Cancelar
+      </button>
+      <button type="submit" [disabled]="movieForm.invalid"
+              class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-indigo-300 disabled:cursor-not-allowed">
+        Guardar
+      </button>
+    </div>
+  </form>
+
+  <!-- Mensajes de estado -->
+  <div *ngIf="errorMessage" class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+    <span class="block sm:inline">{{ errorMessage }}</span>
+  </div>
+  
+  <div *ngIf="isSuccess" class="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+    <span class="block sm:inline">Película actualizada correctamente. Redirigiendo...</span>
+  </div>
+</div>

@@ -4,12 +4,13 @@ import { FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from '@angul
 import { Cinemas } from '../../../models/Cinemas';
 import { Cities } from '../../../models/City';
 import { CommonModule, NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-cinema-create',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule, CommonModule],
+  imports: [ ReactiveFormsModule, CommonModule],
   providers: [CinemaApiService],
   templateUrl: './cinema-create.component.html',
   styleUrl: './cinema-create.component.css',
@@ -21,7 +22,9 @@ export class CinemaCreateComponent {
 
   cinemaForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder ,
+    private router : Router
+  ) {
     this.cinemaForm = this.fb.group({
       nameCinema: ['', [Validators.required, Validators.maxLength(100)]],
       description: ['', [Validators.required, Validators.maxLength(500)]],
@@ -41,7 +44,9 @@ export class CinemaCreateComponent {
       });
     }
   }
-
+  onCancel(): void {
+    this.router.navigate(['/cinemaCrear']);
+  }
   onSubmit(): void {
     if (this.cinemaForm.valid) {
       this.submitForm.emit(this.cinemaForm.value);

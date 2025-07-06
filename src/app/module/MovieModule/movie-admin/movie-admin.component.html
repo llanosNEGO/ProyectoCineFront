@@ -1,0 +1,69 @@
+<div class="max-w-6xl mx-auto p-6">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Administración de Películas</h2>
+
+    <div>
+      <button type="button" (click)="onCreate()" 
+              class="px-4 py-2 bg-blue-950-300 text-white bg-blue-950 rounded-md hover:bg-blue-800 ">
+        Agregar Pelicula
+      </button>
+    </div>
+  
+  <!-- Mensaje de carga -->
+  <div *ngIf="isLoading" class="p-4 bg-blue-50 text-blue-700 rounded-lg mb-4">
+    Cargando películas...
+  </div>
+  
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="p-4 bg-red-50 text-red-700 rounded-lg mb-4 flex justify-between items-center">
+    <span>{{ errorMessage }}</span>
+    <button 
+      (click)="loadMovies()"
+      class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+    >
+      Reintentar
+    </button>
+  </div>
+  
+  <!-- Lista de películas -->
+  <div *ngIf="!isLoading && !errorMessage">
+    <div *ngIf="movies.length === 0" class="p-4 bg-gray-50 text-gray-600 rounded-lg">
+      No hay películas disponibles.
+    </div>
+    
+    <div *ngIf="movies.length > 0" class="overflow-x-auto">
+      <table class="min-w-full bg-white rounded-lg overflow-hidden">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Título</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Género</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Director</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duración</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let movie of movies" class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ movie.idMovie }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ movie.title }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ movie.genre }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ movie.director }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ movie.durationMovie }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ movie.status ? movie.status.join(', ') : '' }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <button 
+                (click)="deleteMovie(movie.idMovie)"
+                class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors m-2"
+              >
+                Eliminar
+              </button>
+              <button (click)="editMovie(movie.idMovie)" class="px-3 py-1 bg-yellow-800 text-white rounded hover:bg-yellow-700 transition-colors m-2"> Editar </button>
+              <!-- Botón para editar podría agregarse aquí -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

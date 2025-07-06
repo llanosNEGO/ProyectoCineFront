@@ -30,8 +30,8 @@ export class MovieCreateComponent implements OnInit {
       sinopsis: ['', [Validators.required, Validators.minLength(10)]],
       genre: ['', Validators.required],
       status: [[]],
-      director: ['', [Validators.required, Validators.minLength(2)]],
-      durationMovie: ['', [Validators.required, Validators.pattern('^[0-9]+ min$')]],
+      director: ['', [Validators.required, Validators.minLength(1)]],
+      durationMovie: ['', [Validators.required]],
       age: [''],
       urlTrailer: ['', [Validators.pattern('https?://.+')]],
       idCinemas: [[]],
@@ -42,38 +42,40 @@ export class MovieCreateComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
-    if (this.movieForm.invalid) {
-      this.markAllAsTouched();
-      this.message = 'Por favor, complete todos los campos requeridos correctamente.';
-      this.isError = true;
-      return;
-    }
-
-    const movieData: Movie = {
-      ...this.movieForm.value,
-      idMovie: 0, // El backend probablemente asigna el ID
-      id: '' // ID vacío para que lo asigne el backend
-    };
-
-    this.movieService.createMovie(movieData).subscribe({
-      next: (response) => {
-        this.message = 'Película creada con éxito!';
-        this.isError = false;
-        setTimeout(() => {
-          this.router.navigate(['/movies']);
-        }, 2000);
-      },
-      error: (err) => {
-        this.message = 'Error al crear la película: ' + (err.error?.message || err.message);
-        this.isError = true;
-      }
-    });
+  if (this.movieForm.invalid) {
+    this.markAllAsTouched();
+    this.message = 'Por favor, complete todos los campos requeridos correctamente.';
+    this.isError = true;
+    return;
   }
+
+
+  const movieData: Movie = {
+    ...this.movieForm.value
+
+  };
+
+  this.movieService.createMovie(movieData).subscribe({
+    next: (response) => {
+      this.message = 'Película creada con éxito!';
+      this.isError = false;
+      setTimeout(() => {
+        this.router.navigate(['/movieCrear']);
+      }, 2000);
+    },
+    error: (err) => {
+      this.message = 'Error al crear la película: ' + (err.error?.message || err.message);
+      this.isError = true;
+      console.error('Error completo:', err);
+    }
+  });
+}
 
   onCancel(): void {
-    this.router.navigate(['/movies']);
+    this.router.navigate(['/Admin/movieAdmin']);
   }
 
+  
   private markAllAsTouched(): void {
     Object.values(this.movieForm.controls).forEach(control => {
       control.markAsTouched();

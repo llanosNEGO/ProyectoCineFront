@@ -1,45 +1,58 @@
-<form [formGroup]="cinemaForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="nameCinema">Cinema Name</label>
-    <input id="nameCinema" type="text" formControlName="nameCinema">
-    <div *ngIf="cinemaForm.get('nameCinema')?.invalid && cinemaForm.get('nameCinema')?.touched">
-      Name is required (max 100 characters)
-    </div>
-  </div>
+<div class="max-w-2xl mx-auto p-6 m-4 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Crear Nuevo CIne</h2>
 
-  <div>
-    <label for="description">Description</label>
-    <textarea id="description" formControlName="description"></textarea>
-    <div *ngIf="cinemaForm.get('description')?.invalid && cinemaForm.get('description')?.touched">
-      Description is required (max 500 characters)
-    </div>
-  </div>
+  <form [formGroup]="cinemaForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="nameCinema" class="block text-sm font-medium text-gray-700">Nombre del Cine</label>
+        <input id="nameCinema" type="text" formControlName="nameCinema" class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border">
+        <div *ngIf="cinemaForm.get('nameCinema')?.invalid && cinemaForm.get('nameCinema')?.touched" class="text-red-500 text-sm mt-1">
+          Name es requerido (max 100 characters)
+        </div>
+      </div>
 
-  <div>
-    <label for="address">Address</label>
-    <input id="address" type="text" formControlName="address">
-    <div *ngIf="cinemaForm.get('address')?.invalid && cinemaForm.get('address')?.touched">
-      Address is required (max 200 characters)
-    </div>
-  </div>
+      <div>
+        <label for="description" class="block text-sm font-medium text-gray-700">Descripcion</label>
+        <input id="description" formControlName="description" class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"/>
+        <div *ngIf="cinemaForm.get('description')?.invalid && cinemaForm.get('description')?.touched" class="text-red-500 text-sm mt-1">
+          Description es requerido (max 500 characters)
+        </div>
+      </div>
 
-  <div>
-    <label for="urlImage">Image URL</label>
-    <input id="urlImage" type="text" formControlName="urlImage">
-    <div *ngIf="cinemaForm.get('urlImage')?.invalid && cinemaForm.get('urlImage')?.touched">
-      Max 500 characters
-    </div>
-  </div>
+      <div>
+        <label for="address" class="block text-sm font-medium text-gray-700">Direccion</label>
+        <input id="address" type="text" formControlName="address" class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border">
+        <div *ngIf="cinemaForm.get('address')?.invalid && cinemaForm.get('address')?.touched" class="text-red-500 text-sm mt-1">
+          Direccion es requerido(max 200 characters)
+        </div>
+      </div>
 
-  <div>
-    <label for="city">City</label>
-    <select id="city" formControlName="city">
-      <option *ngFor="let city of cities" [ngValue]="city">{{city.nameCity}}</option>
-    </select>
-    <div *ngIf="cinemaForm.get('city')?.invalid && cinemaForm.get('city')?.touched">
-      City is required
-    </div>
-  </div>
+      <div>
+        <label for="urlImage" class="block text-sm font-medium text-gray-700">URL Imagen</label>
+        <input id="urlImage" type="text" formControlName="urlImage" class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border">
+        <div *ngIf="cinemaForm.get('urlImage')?.invalid && cinemaForm.get('urlImage')?.touched" class="text-red-500 text-sm mt-1">
+          Max 500 characters
+        </div>
+      </div>
 
-  <button type="submit" [disabled]="cinemaForm.invalid">Submit</button>
-</form>
+      <div>
+        <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
+        <input type="text" id="city" formControlName="city" class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border">
+        <div *ngIf="cinemaForm.get('city')?.invalid && cinemaForm.get('city')?.touched" class="text-red-500 text-sm mt-1">
+          City is required
+        </div>
+      </div>
+
+    <!-- Botones -->
+    <div class="flex justify-end space-x-3 pt-4">
+      <button type="button" (click)="onCancel()" 
+              class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+        Cancelar
+      </button>
+      <button type="submit" [disabled]="cinemaForm.invalid"
+              class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-indigo-300 disabled:cursor-not-allowed">
+        Guardar
+      </button>
+    </div>
+  </form>
+
+</div>
