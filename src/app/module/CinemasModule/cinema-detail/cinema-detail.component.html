@@ -1,7 +1,7 @@
 
 
 <div *ngIf="cine">
-    <h2>{{ cine.nameCinema }} - {{ cine.city }}</h2>
+    <h2>{{ cine.name }} - {{ cine.address }}</h2>
     <p>Dirección: {{ cine.description }}</p>
   
     <div *ngFor="let sala of cine.rooms">

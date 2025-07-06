@@ -21,6 +21,8 @@ import { PromocionesCreateComponent } from './module/PromocionesModule/promocion
 import { DulceriaCreateComponent } from './module/DulceriaModule/dulceria-create/dulceria-create.component';
 import { MovieAdminComponent } from './module/MovieModule/movie-admin/movie-admin.component';
 import { MovieEditComponent } from './module/MovieModule/movie-edit/movie-edit.component';
+import { CinemaAdminComponent } from './module/CinemasModule/cinema-admin/cinema-admin.component';
+import { CinemaEditComponent } from './module/CinemasModule/cinema-edit/cinema-edit.component';
 
 
 export const routes: Routes = [
@@ -43,7 +45,9 @@ export const routes: Routes = [
             {path: 'movieAdmin' ,component:MovieAdminComponent},
             {path: 'dulceriaCrear', component:DulceriaCreateComponent},
             {path: 'movieCreate', component: MovieCreateComponent},
-            {path: 'movieEdit/:id', component: MovieEditComponent}
+            {path: 'movieEdit/:id', component: MovieEditComponent},
+            {path: 'cinemaAdmin', component:CinemaAdminComponent},
+            {path: 'cinemaEdit/:id', component:CinemaEditComponent},
         ]
     },
 

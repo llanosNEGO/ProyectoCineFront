@@ -85,9 +85,9 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <div *ngFor="let cine of cine">
         <app-cinema-card
-          [title]="cine.nameCinema"
+          [title]="cine.name"
           [address]="cine.address"
-          (click)="viewDetails(cine.idCinemas)"
+          (click)="viewDetails(cine.id)"
         ></app-cinema-card>
       </div>
     </div>

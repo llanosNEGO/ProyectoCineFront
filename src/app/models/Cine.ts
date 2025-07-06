@@ -1,11 +1,10 @@
 export interface Cine {
     id: number;
     name: string;
+    description: string;
     address: string;
-    disponible: string[];
-    sala: string[];
-    horarios: string[];
     urlImage: string;
-    city: string;
+    horarios: string[];
+    disponible: string[];
     rooms: any[];
 }

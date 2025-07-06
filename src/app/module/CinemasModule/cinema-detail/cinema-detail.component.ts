@@ -4,6 +4,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Cinemas } from '../../../models/Cinemas';
 import { CinemaApiService } from '../data-access/cinema-api.service';
 import { ActivatedRoute } from '@angular/router';
+import { Cine } from '../../../models/Cine';
 
 @Component({
   selector: 'app-cinema-detail',
@@ -14,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CinemaDetailComponent {
 
-  cine?: Cinemas;
+  cine?: Cine;
 
   constructor(private cineService: CinemaApiService,
     private route : ActivatedRoute
@@ -22,7 +23,7 @@ export class CinemaDetailComponent {
 
 ngOnInit() {
   const id = this.route.snapshot.params['id']; // Si usas Angular Router
-  this.cineService.getCinemaById(id).subscribe((data: Cinemas) => {
+  this.cineService.getCinemaById(id).subscribe((data: Cine) => {
     this.cine = data;
   });
 }

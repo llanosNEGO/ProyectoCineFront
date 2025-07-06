@@ -25,7 +25,7 @@ export class AdministracionPanelComponent {
   // Menú de navegación
   menuItems: MenuItem[] = [
     { title: 'Administrar Película', route: 'movieAdmin', isActive: false },
-    { title: 'Crear Cine', route: 'cinemaCrear', isActive: false },
+    { title: 'Administrar Cine', route: 'cinemaAdmin', isActive: false },
     { title: 'Crear Dulceria', route: 'dulceriaCrear', isActive: false },
   ];
 

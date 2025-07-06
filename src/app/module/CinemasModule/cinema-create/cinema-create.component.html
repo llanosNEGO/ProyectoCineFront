@@ -3,9 +3,9 @@
 
   <form [formGroup]="cinemaForm" (ngSubmit)="onSubmit()">
       <div>
-        <label for="nameCinema" class="block text-sm font-medium text-gray-700">Nombre del Cine</label>
-        <input id="nameCinema" type="text" formControlName="nameCinema" class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border">
-        <div *ngIf="cinemaForm.get('nameCinema')?.invalid && cinemaForm.get('nameCinema')?.touched" class="text-red-500 text-sm mt-1">
+        <label for="name" class="block text-sm font-medium text-gray-700">Nombre del Cine</label>
+        <input id="name" type="text" formControlName="name" class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border">
+        <div *ngIf="cinemaForm.get('name')?.invalid && cinemaForm.get('name')?.touched" class="text-red-500 text-sm mt-1">
           Name es requerido (max 100 characters)
         </div>
       </div>
@@ -34,13 +34,6 @@
         </div>
       </div>
 
-      <div>
-        <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
-        <input type="text" id="city" formControlName="city" class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border">
-        <div *ngIf="cinemaForm.get('city')?.invalid && cinemaForm.get('city')?.touched" class="text-red-500 text-sm mt-1">
-          City is required
-        </div>
-      </div>
 
     <!-- Botones -->
     <div class="flex justify-end space-x-3 pt-4">
