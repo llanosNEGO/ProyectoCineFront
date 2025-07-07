@@ -50,11 +50,14 @@ export class LoginComponent {
         next: (response) => {
           console.log('Respuesta Recibida: ', response)
           toast.success('Inicio de sesión exitoso');
-          if(username.includes("Admin")){
-            this.router.navigateByUrl('/Admin');
-          }
-          else{
-            this.router.navigateByUrl('/home');
+          if (this.authService.hasRole('ADMIN')) {
+              this.router.navigateByUrl('/Admin');
+          } 
+          else if (this.authService.hasRole('DBA')) {
+              this.router.navigateByUrl('/Admin');
+            } 
+          else {
+              this.router.navigateByUrl('/home');
           }
 
         },

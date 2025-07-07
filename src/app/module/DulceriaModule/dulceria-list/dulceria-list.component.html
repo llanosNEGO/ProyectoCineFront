@@ -1,5 +1,5 @@
 <div class="min-h-screen">
-    <header class="bg-white text-black shadow-sm">
+    <header class="bg-gray-600 text-white shadow-sm">
       <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <div class="flex items-center space-x-4">
           <img src="https://cdnpe.cineplanet.com.pe/assets/d42744e1-44d1-4a3b-99cf-03a390b90789" alt="Cinema Logo" class="w-12 h-12 rounded-full">
@@ -24,15 +24,7 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 py-8">
-        <div class="flex space-x-4 mb-6 border-b border-gray-200">
-            <button *ngFor="let tab of tabs" 
-                    [class]="'px-4 py-2 text-sm font-medium ' + 
-                             (activeTab === tab ? 'text-cinema-blue border-b-2 border-cinema-blue' : 'text-gray-500')"
-                    (click)="activeTab = tab">
-              {{ tab }}
-            </button>
-          </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div *ngFor="let dulceria of dulceria">
           <app-dulceria-card

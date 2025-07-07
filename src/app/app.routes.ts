@@ -25,6 +25,7 @@ import { CinemaAdminComponent } from './module/CinemasModule/cinema-admin/cinema
 import { CinemaEditComponent } from './module/CinemasModule/cinema-edit/cinema-edit.component';
 import { DulceriaEditComponent } from './module/DulceriaModule/dulceria-edit/dulceria-edit.component';
 import { DulceriaAdminComponent } from './module/DulceriaModule/dulceria-admin/dulceria-admin.component';
+import { AdminGuard } from './module/AuthModule/guards/auth.guard';
 
 
 export const routes: Routes = [
@@ -41,17 +42,17 @@ export const routes: Routes = [
     {path: 'pagos', component:PagosComponent},
     {path: 'seleccion-sitios', component: SelecionSitiosComponent},
     {path: 'promociones', component: PromocionesListComponent},
-    {path: 'Admin', component:AdministracionPanelComponent,
+    {path: 'Admin', component:AdministracionPanelComponent, canActivate:[AdminGuard],
         children:[
-            {path: 'cinemaCrear',component:CinemaCreateComponent},
-            {path: 'movieAdmin' ,component:MovieAdminComponent},
-            {path: 'dulceriaCrear', component:DulceriaCreateComponent},
-            {path: 'movieCreate', component: MovieCreateComponent},
-            {path: 'movieEdit/:id', component: MovieEditComponent},
-            {path: 'cinemaAdmin', component:CinemaAdminComponent},
-            {path: 'cinemaEdit/:id', component:CinemaEditComponent},
-            {path: 'dulceriaEdit/:id', component:DulceriaEditComponent},
-            {path: 'dulceriaAdmin', component: DulceriaAdminComponent}
+            {path: 'cinemaCrear',component:CinemaCreateComponent,  canActivate:[AdminGuard]},
+            {path: 'movieAdmin' ,component:MovieAdminComponent, canActivate:[AdminGuard]},
+            {path: 'dulceriaCrear', component:DulceriaCreateComponent, canActivate:[AdminGuard]},
+            {path: 'movieCreate', component: MovieCreateComponent, canActivate:[AdminGuard]},
+            {path: 'movieEdit/:id', component: MovieEditComponent, canActivate:[AdminGuard]},
+            {path: 'cinemaAdmin', component:CinemaAdminComponent, canActivate:[AdminGuard]},
+            {path: 'cinemaEdit/:id', component:CinemaEditComponent, canActivate:[AdminGuard]},
+            {path: 'dulceriaEdit/:id', component:DulceriaEditComponent, canActivate:[AdminGuard]},
+            {path: 'dulceriaAdmin', component: DulceriaAdminComponent, canActivate:[AdminGuard]}
         ]
     },
 

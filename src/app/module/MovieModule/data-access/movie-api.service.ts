@@ -20,7 +20,7 @@ export class MovieApiService {
   }
 
   getAllMovies(): Observable<Movie[]> {
-    return this.http.get<Movie[]>(`${this.baseUrl}/pelicula`).pipe(
+    return this.http.get<Movie[]>(`${this.baseUrl}`).pipe(
       catchError((error: any) => {
         console.error('Error al obtener películas:', error);
         return throwError(() => new Error('Error al obtener películas'));
@@ -29,7 +29,7 @@ export class MovieApiService {
   }
 
   getMovieById(id: number): Observable<Movie> {
-    return this.http.get<Movie>(`${this.baseUrl}/pelicula/${id}`).pipe(
+    return this.http.get<Movie>(`${this.baseUrl}/${id}`).pipe(
       catchError((error: any) => {
         console.error('Error al obtener película', error);
         return throwError(() => new Error('Error al obtener película'));
@@ -42,7 +42,7 @@ createMovie(movie: Movie): Observable<Movie> {
   const headers = this.getHeaders();
   console.log('Token being sent:', headers.get('Authorization')); 
   
-  return this.http.post<Movie>(`${this.baseUrl}/pelicula`, movie, { headers }).pipe(
+  return this.http.post<Movie>(`${this.baseUrl}/`, movie, { headers }).pipe(
     catchError((error: any) => {
       console.error('Full error:', error); 
       if (error.status === 401) {
@@ -54,7 +54,7 @@ createMovie(movie: Movie): Observable<Movie> {
 }
 
   updateMovie(id: number, movie: Movie): Observable<Movie> {
-    return this.http.put<Movie>(`${this.baseUrl}/pelicula/${id}`, movie, { headers: this.getHeaders() }).pipe(
+    return this.http.put<Movie>(`${this.baseUrl}/${id}`, movie, { headers: this.getHeaders() }).pipe(
       catchError((error: any) => {
         console.error('Error al actualizar película', error);
         return throwError(() => new Error('Error al actualizar película'));
@@ -63,7 +63,7 @@ createMovie(movie: Movie): Observable<Movie> {
   }
 
   deleteMovie(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/pelicula/${id}`, { headers: this.getHeaders() }).pipe(
+    return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers: this.getHeaders() }).pipe(
       catchError((error: any) => {
         console.error('Error al eliminar película', error);
         return throwError(() => new Error('Error al eliminar película'));

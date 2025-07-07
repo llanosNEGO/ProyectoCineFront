@@ -1,85 +1,79 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { hasEmailError, isRequired } from '../utils/validators';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthUserService } from '../data-access/auth-user.service';
 import { toast } from 'ngx-sonner';
 import { Router } from '@angular/router';
 
-interface FormSignUp {
-  email: FormControl<string | null>;
-  password: FormControl<string | null>;
-  name: FormControl<string | null>;
-}
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
-  private _formBuilder = inject(FormBuilder);
-  //Inyectamos nuestro servicio
-  private _authService = inject(AuthUserService);
-  //agregamos las rutas una vez que se registre
-  private _router = inject(Router);
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthUserService);
+  private router = inject(Router);
 
-  isRequired(field: 'email' | 'password' | 'name') {
-    return isRequired(field, this.form);
-  }
-
-  hasEmailError() {
-    return hasEmailError(this.form);
-  }
-
-  form = this._formBuilder.group<FormSignUp>({
-    email: this._formBuilder.control('', [
+  registerForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    username: ['', [
       Validators.required,
-      Validators.email,
-    ]),
-    password: this._formBuilder.control('', Validators.required),
-    name: this._formBuilder.control('', Validators.required),
+      Validators.minLength(3),
+      Validators.maxLength(20),
+      Validators.pattern(/^[a-zA-Z0-9_]+$/) // Solo caracteres alfanuméricos y guiones bajos
+    ]],
+    password: ['', [
+      Validators.required,
+      Validators.minLength(4),
+    ]],
+    confirmPassword: ['', Validators.required]
+  }, { 
+    validators: this.passwordMatchValidator 
   });
 
-  // async submit() {
-  //   if (this.form.invalid) return;
-  
-  //   try {
-  //     const { email, password, name } = this.form.value;
-  
-  //     if (!email || !password || !name) return;
-  
-  //     // Intenta registrar al usuario
-  //     await this._authService.registerUser({ email, password });
-  
-  //     // Si el registro es exitoso, muestra el mensaje y redirige
-  //     toast.success('Usuario creado correctamente');
-  //     //this._router.navigateByUrl('/movieList');
-  //   } catch (error: any) {
-  //     // Si el error es que el email ya está en uso, muestra el mensaje de error y no redirige
-  //     if (error.code === 'auth/email-already-in-use') {
-  //       toast.error('El correo electrónico ya está registrado. Intenta iniciar sesión o usa otro correo.');
-  //     } else {
-  //       // Para otros errores, muestra un mensaje de error general
-  //       toast.error('Ocurrió un error inesperado. Inténtalo nuevamente.');
-  //     }
-  //   }
-  // }
-  
-  
+  // Validador para coincidencia de contraseñas
+  passwordMatchValidator(form: FormGroup) {
+    return form.get('password')?.value === form.get('confirmPassword')?.value 
+      ? null 
+      : { mismatch: true };
+  }
 
-  /*async submitWithGoogle() {
-    try {
-      await this._authService.signInWithGoogle();
-      toast.success('Bienvenido denuevo');
-      this._router.navigateByUrl('/tasks');
-    } catch (error) {
-      toast.error('Ocurrio un error');
+  get f() {
+    return this.registerForm.controls;
+  }
+
+  onSubmit() {
+    if (this.registerForm.invalid) {
+      this.markAllAsTouched();
+      toast.error('Por favor, complete todos los campos correctamente');
+      return;
     }
-  }*/
+
+    const { email, username, password } = this.registerForm.value;
+
+    this.authService.register({ 
+      email, 
+      username, 
+      password,
+      role: 'USER' 
+    }).subscribe({
+      next: () => {
+        toast.success('¡Registro exitoso! Por favor inicie sesión');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Error en registro:', err);
+        toast.error(err.error?.message || 'Error en el registro. Intente nuevamente.');
+      }
+    });
+  }
+
+  private markAllAsTouched() {
+    Object.values(this.registerForm.controls).forEach(control => {
+      control.markAsTouched();
+    });
+  }
 }

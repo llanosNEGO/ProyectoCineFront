@@ -2,19 +2,29 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Dulceria } from '../../../models/Dulceria';
+import { AuthUserService } from '../../AuthModule/data-access/auth-user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DulceriaApiService {
   public apiUrl = 'http://localhost:9090/v1/dulceria';
-  private token = 'eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQURNSU4sREJBIiwidGVzdCI6Im1pdG9jb2RlLXRlc3QtdmFsdWUiLCJzdWIiOiJBZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NTE4NTY1NjQsImV4cCI6MTc1MTg3NDU2NH0.3wAdSkZxgpbWruYlQl6maCVsZD2AM7TSKIJOjNpc2w4QrFRZJnITGN3b0aVZ_RWqgBIsWpc2C7O2hCejOFb9HA';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthUserService
+  ) {}
 
-  private getAuthHeaders(): HttpHeaders {
+  private getAuthHeaders(): HttpHeaders | null {
+    // Verifica si el usuario está autenticado y tiene token
+    if (!this.authService.isAuthenticated || !this.authService.currentUser?.token) {
+      return null;
+    }
+    
+    // Limpia el token de espacios y caracteres especiales
+    const cleanToken = this.authService.currentUser.token.trim().replace(/\s+/g, '');
     return new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
+      'Authorization': `Bearer ${cleanToken}`,
       'Content-Type': 'application/json'
     });
   }
@@ -40,7 +50,12 @@ export class DulceriaApiService {
 
   // POST, PUT, DELETE methods with auth token
   createDulceria(dulceria: Dulceria): Observable<Dulceria> {
-    return this.http.post<Dulceria>(`${this.apiUrl}`, dulceria, { headers: this.getAuthHeaders() }).pipe(
+    const headers = this.getAuthHeaders();
+    if (!headers) {
+      return throwError(() => new Error('Usuario no autenticado'));
+    }
+
+    return this.http.post<Dulceria>(`${this.apiUrl}`, dulceria, { headers }).pipe(
       catchError((error: any) => {
         console.error('Error al crear dulcería:', error);
         return throwError(() => new Error('Error al crear dulcería'));
@@ -49,7 +64,12 @@ export class DulceriaApiService {
   }
 
   updateDulceria(id: number, dulceria: Dulceria): Observable<Dulceria> {
-    return this.http.put<Dulceria>(`${this.apiUrl}/${id}`, dulceria, { headers: this.getAuthHeaders() }).pipe(
+    const headers = this.getAuthHeaders();
+    if (!headers) {
+      return throwError(() => new Error('Usuario no autenticado'));
+    }
+
+    return this.http.put<Dulceria>(`${this.apiUrl}/${id}`, dulceria, { headers }).pipe(
       catchError((error: any) => {
         console.error(`Error al actualizar dulcería con ID ${id}:`, error);
         return throwError(() => new Error(`Error al actualizar dulcería con ID ${id}`));
@@ -58,7 +78,12 @@ export class DulceriaApiService {
   }
 
   deleteDulceria(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
+    const headers = this.getAuthHeaders();
+    if (!headers) {
+      return throwError(() => new Error('Usuario no autenticado'));
+    }
+
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers }).pipe(
       catchError((error: any) => {
         console.error(`Error al eliminar dulcería con ID ${id}:`, error);
         return throwError(() => new Error(`Error al eliminar dulcería con ID ${id}`));

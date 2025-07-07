@@ -24,6 +24,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "http-proxy-middleware": "^3.0.3",
+    "jwt-decode": "^4.0.0",
     "ng-cinerama-18": "file:",
     "ngx-sonner": "^2.0.2",
     "rollup": "^4.24.4",

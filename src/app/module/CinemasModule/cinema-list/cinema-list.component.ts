@@ -14,15 +14,14 @@ import { Cinemas } from '../../../models/Cinemas';
   styles: ``
 })
 export class CinemaListComponent {
-  cine: Cine[] = [];
+  cines: Cine[] = [];
 
 
-  /***************************MockApi******************************/
   constructor(private cineService: CinemaApiService,private router:Router) {}
 
   ngOnInit(): void {
     this.cineService.getAllCinemas().subscribe((data: Cine[]) => {
-      this.cine = data;
+      this.cines = data;
     });
   }
 

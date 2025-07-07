@@ -1,4 +1,4 @@
-<section class="bg-gray-50 dark:bg-gray-900">
+<section class="bg-gray-50 dark:bg-gray-700">
   <div
     class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
   >
@@ -31,7 +31,7 @@
 
         <form
           class="space-y-4 md:space-y-6"
-          [formGroup]="form"
+          [formGroup]="registerForm"
           
         >
           <div>
@@ -41,18 +41,18 @@
               >Nombre</label
             >
             <input
-              type="name"
-              name="name"
-              id="name"
+              type="username"
+              name="username"
+              id="username"
               class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="name@company.com"
               formControlName="name"
             />
-            @if(isRequired('name')) {
-            <small class="text-red-400">Este campo es requerido</small>
-            } @if(hasEmailError()) {
-            <small class="text-red-400">El correo debe ser valido</small>
-            }
+              <div *ngIf="f['username'].touched && f['username'].invalid" class="error-message">
+                <span *ngIf="f['username'].errors?.['required']">Usuario es requerido</span>
+                <span *ngIf="f['username'].errors?.['minlength']">Mínimo 3 caracteres</span>
+                <span *ngIf="f['username'].errors?.['pattern']">Solo letras, números y _</span>
+              </div>
           </div>
 
           <div>
@@ -69,11 +69,18 @@
               placeholder="name@company.com"
               formControlName="email"
             />
-            @if(isRequired('email')) {
-            <small class="text-red-400">Este campo es requerido</small>
-            } @if(hasEmailError()) {
-            <small class="text-red-400">El correo debe ser valido</small>
-            }
+            <div *ngIf="f['password'].touched && f['password'].invalid" class="error-message">
+              <span *ngIf="f['password'].errors?.['required']">Contraseña requerida</span>
+              <span *ngIf="f['password'].errors?.['minlength']">Mínimo 8 caracteres</span>
+              <div *ngIf="f['password'].errors?.['passwordStrength']" class="password-hints">
+                La contraseña debe contener:
+                <ul>
+                  <li [class.valid]="f['password'].errors?.['passwordStrength'].hasUpperCase">1 mayúscula</li>
+                  <li [class.valid]="f['password'].errors?.['passwordStrength'].hasLowerCase">1 minúscula</li>
+                  <li [class.valid]="f['password'].errors?.['passwordStrength'].hasNumber">1 número</li>
+                  <li [class.valid]="f['password'].errors?.['passwordStrength'].hasSpecialChar">1 carácter especial</li>
+                </ul>
+            </div>
           </div>
           <div>
             <label
@@ -90,9 +97,9 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
 
-            @if(isRequired('password')) {
-            <small class="text-red-400">Este campo es requerido</small>
-            }
+        <div *ngIf="f['confirmPassword'].touched && registerForm.errors?.['mismatch']" class="error-message">
+            Las contraseñas no coinciden
+          </div>
           </div>
           <button
             type="submit"
@@ -108,6 +115,7 @@
               >Inicia sesión</a
             >
           </p>
+          </div>
         </form>
       </div>
     </div>

@@ -1,92 +1,13 @@
-<div class="container mx-auto px-4 py-40">
-  <h1 class="text-4xl font-bold text-primary mb-8">Cines</h1>
-
-  <div class="flex flex-col gap-6 mb-8">
-    <div class="flex justify-between items-center">
-      <div class="relative">
-        <!---Filtros-->
-      </div>
-
-      <div class="relative">
-        
-        
-         <select
-          class="appearance-none bg-white border border-gray-300 rounded-md py-2 pl-4 pr-10 w-64"
-        >
-          <option value="">Todos los formatos</option>
-        </select>
-        <div
-          class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
-        >
-          <svg
-            class="w-4 h-4 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M19 9l-7 7-7-7"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </div>
-        
-      </div>
-
-      <div class="flex gap-4">
-        
-        
-        <button class="p-2 bg-white rounded border border-gray-300">
-          <svg
-            class="w-6 h-6 text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M4 6h16M4 12h16M4 18h16"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-
-        <button class="p-2 bg-white rounded border border-gray-300">
-          <svg
-            class="w-6 h-6 text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-        
-        
-      </div>
-    </div>
-  </div>
-
+<div class="container mx-auto px-4 py-6">
+  <h1 class="text-4xl text-gray-400 font-bold text-primary mb-8">Cines</h1>
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <div *ngFor="let cine of cine">
+      <div *ngFor="let cine of cines"> <!-- Corregido: 'cines' en lugar de 'cine' -->
         <app-cinema-card
+          [image]="cine.urlImage" 
           [title]="cine.name"
           [address]="cine.address"
+          [formats]="cine.disponible" 
           (click)="viewDetails(cine.id)"
         ></app-cinema-card>
       </div>
