@@ -23,6 +23,8 @@ import { MovieAdminComponent } from './module/MovieModule/movie-admin/movie-admi
 import { MovieEditComponent } from './module/MovieModule/movie-edit/movie-edit.component';
 import { CinemaAdminComponent } from './module/CinemasModule/cinema-admin/cinema-admin.component';
 import { CinemaEditComponent } from './module/CinemasModule/cinema-edit/cinema-edit.component';
+import { DulceriaEditComponent } from './module/DulceriaModule/dulceria-edit/dulceria-edit.component';
+import { DulceriaAdminComponent } from './module/DulceriaModule/dulceria-admin/dulceria-admin.component';
 
 
 export const routes: Routes = [
@@ -48,6 +50,8 @@ export const routes: Routes = [
             {path: 'movieEdit/:id', component: MovieEditComponent},
             {path: 'cinemaAdmin', component:CinemaAdminComponent},
             {path: 'cinemaEdit/:id', component:CinemaEditComponent},
+            {path: 'dulceriaEdit/:id', component:DulceriaEditComponent},
+            {path: 'dulceriaAdmin', component: DulceriaAdminComponent}
         ]
     },
 

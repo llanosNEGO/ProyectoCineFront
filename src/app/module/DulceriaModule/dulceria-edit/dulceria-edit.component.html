@@ -1,68 +1,65 @@
 <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold text-gray-800 mb-6">Crear Nuevo Combo</h2>
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Editar Combo</h2>
   
-  <form [formGroup]="dulceriaForm" (ngSubmit)="onSubmit()" class="space-y-4">
-
-
+  <form [formGroup]="editform" (ngSubmit)="onSubmit()" class="space-y-4">
 
     <!-- Nombre -->
     <div>
       <label for="title" class="block text-sm font-medium text-gray-700">Nombre*</label>
       <input id="title" formControlName="title" 
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
-                [class.border-red-500]="title?.invalid && (title?.dirty || title?.touched)"/>
+             class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="title?.invalid && (title?.dirty || title?.touched)"/>
       <div *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="text-red-500 text-sm mt-1">
-        <div *ngIf="title?.errors?.['required']">Nombre es requerida</div>
+        <div *ngIf="title?.errors?.['required']">Nombre es requerido</div>
         <div *ngIf="title?.errors?.['minlength']">Mínimo 10 caracteres</div>
       </div>
     </div>
 
     <!-- Descripcion -->
     <div>
-      <label for="description" class="block text-sm font-medium text-gray-700">Descripcion*</label>
-      <textarea type="text" id="description" formControlName="description" rows="3"
-             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
-             [class.border-red-500]="description?.invalid && (description?.dirty || description?.touched)"></textarea>
+      <label for="description" class="block text-sm font-medium text-gray-700">Descripción*</label>
+      <textarea id="description" formControlName="description" rows="3"
+               class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+               [class.border-red-500]="description?.invalid && (description?.dirty || description?.touched)"></textarea>
       <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="text-red-500 text-sm mt-1">
-        <div *ngIf="description?.errors?.['required']">La Descripcion es requerida</div>
+        <div *ngIf="description?.errors?.['required']">La descripción es requerida</div>
       </div>
     </div>
 
-    
-         <!-- Categoria -->
+    <!-- Categoria -->
     <div>
-      <label for="category" class="block text-sm font-medium text-gray-700">Categoria</label>
+      <label for="category" class="block text-sm font-medium text-gray-700">Categoría*</label>
       <input type="text" id="category" formControlName="category" 
-             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
              [class.border-red-500]="category?.invalid && (category?.dirty || category?.touched)">
       <div *ngIf="category?.invalid && (category?.dirty || category?.touched)" class="text-red-500 text-sm mt-1">
-        <div *ngIf="category?.errors?.['required']">La Categoria es requerida</div>
+        <div *ngIf="category?.errors?.['required']">La categoría es requerida</div>
       </div>
     </div>
 
- 
     <!-- Precio -->
-<div>
-  <label for="cost" class="block text-sm font-medium text-gray-700">Precio*</label>
-  <input type="text" id="cost" formControlName="cost" 
-         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
-         [class.border-red-500]="cost?.invalid && (cost?.dirty || cost?.touched)">
-  <div *ngIf="cost?.invalid && (cost?.dirty || cost?.touched)" class="text-red-500 text-sm mt-1">
-    <div *ngIf="cost?.errors?.['required']">El precio es requerido</div>
-    <div *ngIf="cost?.errors?.['minlength']">Mínimo 2 caracteres</div>
-  </div>
-</div>
+    <div>
+      <label for="cost" class="block text-sm font-medium text-gray-700">Precio*</label>
+      <input type="number" id="cost" formControlName="cost" 
+             class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+             [class.border-red-500]="cost?.invalid && (cost?.dirty || cost?.touched)">
+      <div *ngIf="cost?.invalid && (cost?.dirty || cost?.touched)" class="text-red-500 text-sm mt-1">
+        <div *ngIf="cost?.errors?.['required']">El precio es requerido</div>
+        <div *ngIf="cost?.errors?.['min']">El precio no puede ser negativo</div>
+      </div>
+    </div>
 
     <!-- URL de la imagen -->
     <div>
       <label for="urlImage" class="block text-sm font-medium text-gray-700">URL de la imagen*</label>
-      <input type="text" id="url" formControlName="urlImage" 
-             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+      <input type="url" id="urlImage" formControlName="urlImage" 
+             class="mt-1 block w-full rounded-md text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
              [class.border-red-500]="urlImage?.invalid && (urlImage?.dirty || urlImage?.touched)">
       <div *ngIf="urlImage?.invalid && (urlImage?.dirty || urlImage?.touched)" class="text-red-500 text-sm mt-1">
         <div *ngIf="urlImage?.errors?.['required']">La URL es requerida</div>
         <div *ngIf="urlImage?.errors?.['pattern']">Debe ser una URL válida (http:// o https://)</div>
       </div>
+      
     </div>
 
     <!-- Botones -->
@@ -71,9 +68,9 @@
               class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
         Cancelar
       </button>
-      <button type="submit" [disabled]="dulceriaForm.invalid"
+      <button type="submit" [disabled]="editform.invalid"
               class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-indigo-300 disabled:cursor-not-allowed">
-        Guardar
+        Guardar Cambios
       </button>
     </div>
   </form>

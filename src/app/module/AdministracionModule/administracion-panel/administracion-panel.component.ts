@@ -26,7 +26,7 @@ export class AdministracionPanelComponent {
   menuItems: MenuItem[] = [
     { title: 'Administrar Película', route: 'movieAdmin', isActive: false },
     { title: 'Administrar Cine', route: 'cinemaAdmin', isActive: false },
-    { title: 'Crear Dulceria', route: 'dulceriaCrear', isActive: false },
+    { title: 'Administrar Dulceria', route: 'dulceriaAdmin', isActive: false },
   ];
 
   setActiveItem(activeItem: MenuItem): void {
