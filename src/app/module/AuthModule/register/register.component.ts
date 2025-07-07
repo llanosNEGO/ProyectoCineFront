@@ -22,8 +22,7 @@ export class RegisterComponent {
     username: ['', [
       Validators.required,
       Validators.minLength(3),
-      Validators.maxLength(20),
-      Validators.pattern(/^[a-zA-Z0-9_]+$/) // Solo caracteres alfanuméricos y guiones bajos
+      Validators.maxLength(20)
     ]],
     password: ['', [
       Validators.required,
@@ -46,6 +45,7 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+    console.log('Formulario enviado'); 
     if (this.registerForm.invalid) {
       this.markAllAsTouched();
       toast.error('Por favor, complete todos los campos correctamente');

@@ -90,7 +90,7 @@ export class AuthUserService {
     }
   }
   register(userData: { email: string; password: string; username: string; role: string }) {
-  return this.http.post('/api/auth/register', userData);
+  return this.http.post(`${environment.backendUrl}/v1/users`, userData);
 }
 
   logout(): void {
